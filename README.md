@@ -1,4 +1,5 @@
 # CS Serviços
+![Preview do site CS Serviços](preview.png)
 
 Site institucional desenvolvido para a CS Serviços, empresa voltada à orientação em crédito consignado, auxílio-acidente e atendimento personalizado.
 
