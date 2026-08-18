@@ -63,7 +63,7 @@ if (menuToggle && mainNav) {
 const whatsappNumber = "5534991856228";
 
 const whatsappMessage =
-    "Olá! Gostaria de saber mais sobre os serviços da CS Serviços.";
+    "Olá! Vim pelo site da CS Serviços e gostaria de saber mais sobre os serviços.";
 
 
 function openWhatsApp() {
@@ -151,3 +151,85 @@ window.addEventListener("scroll", () => {
     }
 
 });
+
+/* =========================================================
+   FORMULÁRIO DE LEADS
+========================================================= */
+
+const leadForm = document.getElementById("leadForm");
+
+const leadsApiUrl =
+    "https://script.google.com/macros/s/AKfycbxT8MiuKKEnmOxCHiuhE_tt_rNB43Ssa0Q6gC9f0z2RDvSdoSJ043yNQrvVpdbCjyOsOg/exec";
+
+if (leadForm) {
+
+    leadForm.addEventListener("submit", async event => {
+
+        event.preventDefault();
+
+        const dados = {
+            nome: document.getElementById("nome").value.trim(),
+            whatsapp: document.getElementById("whatsapp").value.trim(),
+            servico: document.getElementById("servico").value,
+            origem: "Site",
+            observacao: document.getElementById("observacao").value.trim()
+        };
+
+        try {
+
+            const resposta = await fetch(leadsApiUrl, {
+                method: "POST",
+                body: JSON.stringify(dados)
+            });
+
+            const resultado = await resposta.json();
+
+            if (resultado.sucesso) {
+
+    const mensagemWhatsApp =
+        `Olá! Acabei de solicitar atendimento pelo site da CS Serviços. Meu nome é ${dados.nome} e tenho interesse em ${dados.servico}.`;
+
+    const whatsappUrl =
+        `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensagemWhatsApp)}`;
+
+    leadForm.innerHTML = `
+        <div class="lead-success">
+            <span class="lead-success__icon">✓</span>
+
+            <h3>
+                Solicitação enviada!
+            </h3>
+
+            <p>
+                Seus dados foram registrados com sucesso.
+            </p>
+
+            <p>
+                Estamos te redirecionando para o
+                <strong>WhatsApp da CS Serviços...</strong>
+            </p>
+        </div>
+    `;
+
+    setTimeout(() => {
+
+    window.location.href = whatsappUrl;
+
+}, 1500);
+
+}
+
+        } catch (erro) {
+
+            console.error("Erro ao enviar lead:", erro);
+
+            alert(
+                "Não foi possível enviar sua solicitação. " +
+                "Tente novamente."
+            );
+
+        }
+
+    });
+
+}

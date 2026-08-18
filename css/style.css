@@ -1696,6 +1696,134 @@ a {
     max-width: 100%;
 }
 
+/* =========================================================
+   FORMULÁRIO DE ATENDIMENTO
+========================================================= */
+
+.lead-form {
+    width: min(100%, 520px);
+
+    padding: 34px;
+
+    background: rgba(11, 31, 58, 0.72);
+
+    border: 1px solid rgba(201, 162, 39, 0.28);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.18);
+
+    backdrop-filter: blur(10px);
+}
+
+.lead-form h3 {
+    margin: 8px 0 10px;
+
+    font-size: 1.55rem;
+
+    color: var(--white);
+}
+
+.lead-form p {
+    margin-bottom: 24px;
+
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.lead-form form {
+    display: grid;
+
+    gap: 14px;
+}
+
+.lead-form input,
+.lead-form select,
+.lead-form textarea {
+
+    width: 100%;
+
+    padding: 14px 15px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    color: var(--white);
+
+    background: rgba(255, 255, 255, 0.06);
+
+    font: inherit;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.lead-form input::placeholder,
+.lead-form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.48);
+}
+
+.lead-form input:focus,
+.lead-form select:focus,
+.lead-form textarea:focus {
+
+    border-color: var(--gold);
+
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.lead-form select {
+    color: var(--white);
+    background: var(--navy);
+    cursor: pointer;
+}
+
+.lead-form select option {
+    color: var(--white);
+    background: var(--navy);
+    font-size: 16px;
+}
+
+.lead-form textarea {
+    resize: vertical;
+
+    min-height: 110px;
+}
+
+.lead-form button {
+    width: 100%;
+
+    margin-top: 4px;
+
+    border: none;
+
+    cursor: pointer;
+}
+
+.lead-form input,
+.lead-form select,
+.lead-form textarea {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.lead-form input,
+.lead-form select {
+    min-height: 50px;
+}
+
+.lead-form textarea {
+    min-height: 120px;
+}
+
+.lead-form button {
+    min-height: 50px;
+}
+
 .cta h2 {
     margin-bottom: 12px;
 

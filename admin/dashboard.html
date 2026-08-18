@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CS Serviços | Dashboard</title>
+</head>
+
+<body>
+
+    <h1>Dashboard CS Serviços</h1>
+
+    <p>Área administrativa protegida.</p>
+
+    <button id="logoutButton">
+        Sair
+    </button>
+
+    <script type="module">
+
+        import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+        const SUPABASE_URL =
+            "https://pvhsfrawvgrhnrvrhtrm.supabase.co";
+
+        const SUPABASE_KEY =
+            "sb_publishable_bPlKB90OXrDhP90InxLZ-Q_RiVFzNSu";
+
+        const supabase = createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+        const {
+            data: { session }
+        } = await supabase.auth.getSession();
+
+        // Se não estiver logado, volta para a tela de login
+        if (!session) {
+            window.location.href = "index.html";
+        }
+
+        // Logout
+        document
+            .getElementById("logoutButton")
+            .addEventListener("click", async () => {
+
+                await supabase.auth.signOut();
+
+                window.location.href = "index.html";
+            });
+
+    </script>
+
+</body>
+
+</html>
