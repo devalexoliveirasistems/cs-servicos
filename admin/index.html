@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <meta name="description" content="Área administrativa da CS Serviços">
+
     <title>CS Serviços | Área Administrativa</title>
+
+    <link rel="icon" type="image/png" href="../assets/images/logo-cs-servicos.png">
 
     <link rel="stylesheet" href="admin.css">
 </head>
@@ -16,41 +20,90 @@
 
         <div class="login-card">
 
-            <h1>CS Serviços</h1>
+            <div class="login-brand">
 
-            <p>Área Administrativa</p>
+                <img
+                    src="../assets/images/logo-cs-servicos.png"
+                    alt="CS Serviços"
+                    class="login-logo"
+                >
+
+                <span class="eyebrow">
+                    CS SERVIÇOS
+                </span>
+
+            </div>
+
+            <div class="login-header">
+
+                <h1>
+                    Área Administrativa
+                </h1>
+
+                <p>
+                    Acesso exclusivo para gerenciamento da empresa.
+                </p>
+
+            </div>
 
             <form id="loginForm">
 
-                <label for="email">
-                    E-mail
-                </label>
+                <div class="form-group">
 
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Seu e-mail"
-                    required
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Digite seu e-mail"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Senha
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="login-button"
                 >
-
-                <label for="password">
-                    Senha
-                </label>
-
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Sua senha"
-                    required
-                >
-
-                <button type="submit">
                     Entrar
                 </button>
 
-                <p id="loginMessage"></p>
+                <p
+                    id="loginMessage"
+                    class="login-message"
+                    aria-live="polite"
+                ></p>
 
             </form>
+
+            <div class="login-footer">
+
+                <span>
+                    Acesso protegido
+                </span>
+
+            </div>
 
         </div>
 
