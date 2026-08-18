@@ -11,6 +11,25 @@ const supabase = createClient(
 
 const loginForm = document.getElementById("loginForm");
 const loginMessage = document.getElementById("loginMessage");
+const togglePassword = document.getElementById("togglePassword");
+const passwordInput = document.getElementById("password");
+
+togglePassword.addEventListener("click", () => {
+
+    const isPassword = passwordInput.type === "password";
+
+    passwordInput.type = isPassword
+        ? "text"
+        : "password";
+
+    togglePassword.setAttribute(
+    "aria-label",
+    isPassword
+        ? "Ocultar senha"
+        : "Mostrar senha"
+);
+
+});
 
 loginForm.addEventListener("submit", async (event) => {
 
