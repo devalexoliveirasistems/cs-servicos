@@ -287,6 +287,12 @@ body {
     padding-right: 50px;
 }
 
+/* Remove o olho nativo do Edge */
+.password-wrapper input::-ms-reveal,
+.password-wrapper input::-ms-clear {
+    display: none;
+}
+
 .toggle-password {
     position: absolute;
     right: 12px;
