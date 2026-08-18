@@ -1,0 +1,3268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Relatórios administrativos da CS Serviços"
+    >
+
+    <title>CS Serviços | Relatórios</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="../assets/images/logo-cs-servicos.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="dashboard.css"
+    >
+
+    <style>
+
+        /* =========================
+           FILTROS
+        ========================= */
+
+        .filters-panel {
+
+            margin-bottom: 28px;
+            padding: 22px;
+
+            background: var(--card);
+
+            border: 1px solid #252525;
+            border-radius: var(--radius);
+
+        }
+
+
+        .filters-title {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .filters-title span {
+
+            display: block;
+            margin-bottom: 5px;
+
+            color: var(--gold);
+
+            font-size: 11px;
+            font-weight: 700;
+
+            letter-spacing: .16em;
+
+        }
+
+
+        .filters-title h2 {
+
+            font-size: 18px;
+
+        }
+
+
+        .filters-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 14px;
+
+        }
+
+
+        .filter-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+
+        }
+
+
+        .filter-group label {
+
+            color: #999;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+        }
+
+
+        .filter-group select {
+
+            width: 100%;
+
+            height: 42px;
+
+            padding: 0 12px;
+
+            border: 1px solid #303030;
+
+            border-radius: 9px;
+
+            background: #101010;
+
+            color: var(--text);
+
+            outline: none;
+
+            font-size: 13px;
+
+            cursor: pointer;
+
+        }
+
+
+        .filter-group select:focus {
+
+            border-color: var(--gold);
+
+        }
+
+
+        .filter-actions {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-top: 16px;
+
+        }
+
+
+        .filter-button {
+
+            height: 42px;
+
+            padding: 0 18px;
+
+            border-radius: 9px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+        .filter-button.primary {
+
+            border: 1px solid var(--gold);
+
+            background: var(--gold);
+
+            color: #111;
+
+        }
+
+
+        .filter-button.primary:hover {
+
+            opacity: .9;
+
+        }
+
+
+        .filter-button.secondary {
+
+            border: 1px solid #303030;
+
+            background: transparent;
+
+            color: #aaa;
+
+        }
+
+
+        .filter-button.secondary:hover {
+
+            border-color: #555;
+
+            color: var(--text);
+
+        }
+
+
+        .filter-status {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-top: 14px;
+
+            padding-top: 14px;
+
+            border-top: 1px solid #242424;
+
+            color: #777;
+
+            font-size: 11px;
+
+        }
+
+
+        .filter-status strong {
+
+            color: var(--gold);
+
+        }
+
+
+        /* =========================
+           CARDS
+        ========================= */
+
+        .report-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 16px;
+
+            margin-bottom: 28px;
+
+        }
+
+
+        .report-card {
+
+            padding: 22px;
+
+            background: var(--card);
+
+            border: 1px solid #252525;
+
+            border-radius: var(--radius);
+
+            transition:
+                transform .2s ease,
+                border-color .2s ease;
+
+        }
+
+
+        .report-card:hover {
+
+            transform: translateY(-2px);
+
+            border-color:
+                rgba(212, 175, 55, .30);
+
+        }
+
+
+        .report-card span {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #858585;
+
+            font-size: 12px;
+
+        }
+
+
+        .report-card strong {
+
+            display: block;
+
+            color: var(--text);
+
+            font-size: 30px;
+
+            line-height: 1;
+
+        }
+
+
+        .report-card small {
+
+            display: block;
+
+            margin-top: 8px;
+
+            color: #777;
+
+            font-size: 11px;
+
+        }
+
+
+
+
+        /* =========================
+           GRÁFICO
+        ========================= */
+
+        .chart-panel {
+
+            padding: 24px;
+
+        }
+
+
+        .chart {
+
+            height: 260px;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            gap: 12px;
+
+            padding-top: 30px;
+
+        }
+
+
+        .chart-day {
+
+            flex: 1;
+
+            height: 100%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            gap: 8px;
+
+        }
+
+
+        .chart-value {
+
+            color: var(--gold);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+        }
+
+
+        .chart-bar {
+
+            width: 100%;
+
+            max-width: 55px;
+
+            min-height: 4px;
+
+            border-radius: 8px 8px 0 0;
+
+            background: var(--gold);
+
+            transition: height .4s ease;
+
+        }
+
+
+        .chart-label {
+
+            color: #777;
+
+            font-size: 11px;
+
+        }
+
+
+        /* =========================
+           SERVIÇOS
+        ========================= */
+
+        .service-report {
+
+            padding: 24px;
+
+        }
+
+
+        .service-row {
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .service-row:last-child {
+
+            margin-bottom: 0;
+
+        }
+
+
+        .service-row-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .service-row-header span {
+
+            color: #aaa;
+
+            font-size: 13px;
+
+        }
+
+
+        .service-row-header strong {
+
+            color: var(--gold);
+
+            font-size: 13px;
+
+        }
+
+
+        .progress {
+
+            height: 10px;
+
+            overflow: hidden;
+
+            background: #242424;
+
+            border-radius: 10px;
+
+        }
+
+
+        .progress-bar {
+
+            width: 0%;
+
+            height: 100%;
+
+            background: var(--gold);
+
+            border-radius: 10px;
+
+            transition: width .5s ease;
+
+        }
+
+
+        /* =========================
+           COLUNAS
+        ========================= */
+
+        .report-columns {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 16px;
+
+            margin-top: 28px;
+
+        }
+
+
+        /* =========================
+           RESPONSIVO
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .filters-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .report-grid {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+            }
+
+
+            .report-columns {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .filters-panel {
+
+                padding: 18px;
+
+            }
+
+
+            .filter-actions {
+
+                flex-direction: column;
+
+            }
+
+
+            .filter-button {
+
+                width: 100%;
+
+            }
+
+
+            .filter-status {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+            }
+
+
+            .report-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .chart {
+
+                gap: 6px;
+
+            }
+
+
+            .chart-label {
+
+                font-size: 9px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="dashboard">
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
+    <aside
+        class="sidebar"
+        id="sidebar"
+    >
+
+        <div class="sidebar-brand">
+
+            <img
+                src="../assets/images/logo-cs-servicos.png"
+                alt="CS Serviços"
+                class="sidebar-logo"
+            >
+
+            <div>
+
+                <strong>
+                    CS SERVIÇOS
+                </strong>
+
+                <span>
+                    Área Administrativa
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="dashboard.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ◈
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a
+                href="leads.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                Leads
+
+            </a>
+
+            <a
+                href="leads.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                <span>
+                    Contatos
+                </span>
+
+            </a>
+
+            <a
+                href="relatorios.html"
+                class="nav-item active"
+            >
+
+                <span class="nav-icon">
+                    ◫
+                </span>
+
+                Relatórios
+
+            </a>
+
+
+            <a
+                href="configuracoes.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ⚙
+                </span>
+
+                Configurações
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                type="button"
+                id="logoutButton"
+                class="logout-button"
+            >
+
+                <span>
+                    ⇥
+                </span>
+
+                Sair
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         PRINCIPAL
+    ========================= -->
+
+    <main class="main-content">
+
+
+        <header class="topbar">
+
+            <button
+                type="button"
+                id="menuButton"
+                class="menu-button"
+                aria-label="Abrir menu"
+            >
+                ☰
+            </button>
+
+
+            <div class="topbar-title">
+
+                <span>
+                    Painel administrativo
+                </span>
+
+                <h1>
+                    Relatórios
+                </h1>
+
+                <span
+                    id="realtimeStatus"
+                    style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 6px;
+                        margin-top: 6px;
+                        color: #7fbf8f;
+                        font-size: 11px;
+                        font-weight: 600;
+                    "
+                >
+                    <span
+                        style="
+                            width: 7px;
+                            height: 7px;
+                            border-radius: 50%;
+                            background: #7fbf8f;
+                            box-shadow: 0 0 8px rgba(127, 191, 143, .7);
+                        "
+                    ></span>
+
+                    Atualização em tempo real ativa
+                </span>
+
+            </div>
+
+
+            <div class="user-area">
+
+                <div class="user-avatar">
+                    A
+                </div>
+
+                <div class="user-info">
+
+                    <strong>
+                        Administrador
+                    </strong>
+
+                    <span>
+                        CS Serviços
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             CONTEÚDO
+        ========================= -->
+
+        <section class="content">
+
+
+            <div class="welcome">
+
+                <span class="eyebrow">
+                    ANÁLISE
+                </span>
+
+                <h2>
+                    Relatórios da CS Serviços
+                </h2>
+
+                <p>
+                    Acompanhe o desempenho dos contatos
+                    recebidos pelo site.
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 FILTROS
+            ========================= -->
+
+            <section class="filters-panel">
+
+                <div class="filters-title">
+
+                    <span>
+                        FILTROS
+                    </span>
+
+                    <h2>
+                        Filtrar relatório
+                    </h2>
+
+                </div>
+
+
+                <div class="filters-grid">
+
+
+                    <div class="filter-group">
+
+                        <label for="periodFilter">
+                            Período
+                        </label>
+
+                        <select id="periodFilter">
+
+                            <option value="all">
+                                Todos os leads
+                            </option>
+
+                            <option value="today">
+                                Hoje
+                            </option>
+
+                            <option value="7">
+                                Últimos 7 dias
+                            </option>
+
+                            <option value="30">
+                                Últimos 30 dias
+                            </option>
+
+                            <option value="month">
+                                Este mês
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="filter-group">
+
+                        <label for="serviceFilter">
+                            Serviço
+                        </label>
+
+                        <select id="serviceFilter">
+
+                            <option value="all">
+                                Todos os serviços
+                            </option>
+
+                            <option value="Crédito Consignado">
+                                Crédito Consignado
+                            </option>
+
+                            <option value="Auxílio-Acidente">
+                                Auxílio-Acidente
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="filter-group">
+
+                        <label for="originFilter">
+                            Origem
+                        </label>
+
+                        <select id="originFilter">
+
+                            <option value="all">
+                                Todas as origens
+                            </option>
+
+                            <option value="Site">
+                                Site
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="filter-actions">
+
+                    <button
+                        type="button"
+                        class="filter-button secondary"
+                        id="clearFilters"
+                    >
+                        Limpar filtros
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="filter-button primary"
+                        id="applyFilters"
+                    >
+                        Aplicar filtros
+                    </button>
+
+                </div>
+
+
+                <div class="filter-status">
+
+                    <span>
+                        Exibindo
+                        <strong id="filteredCount">
+                            0
+                        </strong>
+                        lead(s)
+                    </span>
+
+                    <span id="filterDescription">
+                        Todos os leads
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 CARDS
+            ========================= -->
+
+            <div class="report-grid">
+
+
+                <article class="report-card">
+
+                    <span>
+                        Total de leads
+                    </span>
+
+                    <strong id="totalLeads">
+                        0
+                    </strong>
+
+                    <small>
+                        Conforme os filtros
+                    </small>
+
+                </article>
+
+
+                <article class="report-card">
+
+                    <span>
+                        Leads hoje
+                    </span>
+
+                    <strong id="todayLeads">
+                        0
+                    </strong>
+
+                    <small>
+                        Contatos recebidos hoje
+                    </small>
+
+                </article>
+
+
+                <article class="report-card">
+
+                    <span>
+                        Leads este mês
+                    </span>
+
+                    <strong id="monthLeads">
+                        0
+                    </strong>
+
+                    <small>
+                        Contatos no mês atual
+                    </small>
+
+                </article>
+
+
+                <article class="report-card">
+
+                    <span>
+                        Crédito Consignado
+                    </span>
+
+                    <strong id="consignadoLeads">
+                        0
+                    </strong>
+
+                    <small>
+                        Leads interessados
+                    </small>
+
+                </article>
+
+
+                <article class="report-card">
+
+                    <span>
+                        Auxílio-Acidente
+                    </span>
+
+                    <strong id="acidenteLeads">
+                        0
+                    </strong>
+
+                    <small>
+                        Leads interessados
+                    </small>
+
+                </article>
+
+
+                <article class="report-card">
+
+                    <span>
+                        Origem: Site
+                    </span>
+
+                    <strong id="siteLeads">
+                        0
+                    </strong>
+
+                    <small>
+                        Leads vindos do site
+                    </small>
+
+                </article>
+
+                <article class="report-card">
+
+                    <span>
+                        Novos
+                    </span>
+
+                    <strong id="newLeads">
+                        0
+                    </strong>
+
+                    <small>
+                        Leads aguardando atendimento
+                    </small>
+
+                </article>
+
+
+                <article class="report-card">
+
+                    <span>
+                        Em atendimento
+                    </span>
+
+                    <strong id="serviceLeads">
+                        0
+                    </strong>
+
+                    <small>
+                        Leads em atendimento
+                    </small>
+
+                </article>
+
+                <article class="report-card">
+
+                    <span>
+                        Concluídos
+                    </span>
+
+                    <strong id="completedLeads">
+                        0
+                    </strong>
+
+                    <small>
+                        Leads concluídos
+                    </small>
+
+                </article>
+
+
+                <article class="report-card">
+
+                    <span>
+                        Cancelados
+                    </span>
+
+                    <strong id="cancelledLeads">
+                        0
+                    </strong>
+
+                    <small>
+                        Leads cancelados
+                    </small>
+
+                </article>
+
+            </div>
+
+            <!-- =========================
+     ANÁLISE AVANÇADA
+========================= -->
+
+            <div class="report-grid">
+
+                <article class="report-card">
+
+                    <span>
+                        Período anterior
+                    </span>
+
+                    <strong id="previousLeads">
+                        0
+                    </strong>
+
+                    <small id="growthText">
+                        Sem comparação
+                    </small>
+
+                </article>
+
+
+                <article class="report-card">
+
+                    <span>
+                        Crescimento
+                    </span>
+
+                    <strong id="growthPercent">
+                        0%
+                    </strong>
+
+                    <small>
+                        Comparação com período anterior
+                    </small>
+
+                </article>
+
+
+                <article class="report-card">
+
+                    <span>
+                        Melhor dia
+                    </span>
+
+                    <strong
+                        id="bestDay"
+                        style="font-size: 22px;"
+                    >
+                        —
+                    </strong>
+
+                    <small id="bestDayCount">
+                        0 leads
+                    </small>
+
+                </article>
+
+            </div>
+
+
+            <!-- =========================
+                STATUS DOS LEADS
+            ========================= -->
+
+            <section class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            STATUS
+                        </span>
+
+                        <h2>
+                            Situação dos leads
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="service-report">
+
+                    <div class="service-row">
+
+                        <div class="service-row-header">
+
+                            <span>
+                                Novos
+                            </span>
+
+                            <strong id="newLeadsStatus">
+                                0
+                            </strong>
+
+                        </div>
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar"
+                                id="newLeadsBar"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="service-row">
+
+                        <div class="service-row-header">
+
+                            <span>
+                                Em atendimento
+                            </span>
+
+                            <strong id="inProgressLeads">
+                                0
+                            </strong>
+
+                        </div>
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar"
+                                id="inProgressLeadsBar"
+                            ></div>
+
+                        </div>
+
+                        <div class="service-row">
+
+                            <div class="service-row-header">
+
+                                <span>
+                                    Concluído
+                                </span>
+
+                                <strong id="completedLeadsStatus">
+                                    0
+                                </strong>
+
+                            </div>
+
+                            <div class="progress">
+
+                                <div
+                                    class="progress-bar"
+                                    id="completedLeadsBar"
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="service-row">
+
+                            <div class="service-row-header">
+
+                                <span>
+                                    Cancelado
+                                </span>
+
+                                <strong id="cancelledLeadsStatus">
+                                    0
+                                </strong>
+
+                            </div>
+
+                            <div class="progress">
+
+                                <div
+                                    class="progress-bar"
+                                    id="cancelledLeadsBar"
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                RANKING E RESUMO
+            ========================= -->
+
+            <div class="report-columns">
+
+
+                <section class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                RANKING
+                            </span>
+
+                            <h2>
+                                Serviços mais procurados
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="service-report"
+                        id="serviceRanking"
+                    ></div>
+
+                </section>
+
+
+                <section class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                RESUMO
+                            </span>
+
+                            <h2>
+                                Análise do período
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="service-report">
+
+                        <p
+                            id="reportSummary"
+                            style="
+                                color: #aaa;
+                                font-size: 13px;
+                                line-height: 1.7;
+                                margin: 0;
+                            "
+                        >
+                            Carregando análise...
+                        </p>
+
+                    </div>
+
+                </section>
+
+
+            </div>
+
+
+            <!-- =========================
+                 GRÁFICO
+            ========================= -->
+
+            <section class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            ÚLTIMOS 7 DIAS
+                        </span>
+
+                        <h2>
+                            Leads recebidos
+                        </h2>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="panel-button"
+                        id="refreshButton"
+                    >
+                        Atualizar
+                    </button>
+
+                </div>
+
+
+                <div class="chart-panel">
+
+                    <div
+                        class="chart"
+                        id="chart"
+                    ></div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 SERVIÇOS / ORIGEM
+            ========================= -->
+
+            <div class="report-columns">
+
+
+                <section class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                SERVIÇOS
+                            </span>
+
+                            <h2>
+                                Distribuição
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="service-report">
+
+
+                        <div class="service-row">
+
+                            <div class="service-row-header">
+
+                                <span>
+                                    Crédito Consignado
+                                </span>
+
+                                <strong
+                                    id="consignadoPercent"
+                                >
+                                    0%
+                                </strong>
+
+                            </div>
+
+
+                            <div class="progress">
+
+                                <div
+                                    class="progress-bar"
+                                    id="consignadoBar"
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="service-row">
+
+                            <div class="service-row-header">
+
+                                <span>
+                                    Auxílio-Acidente
+                                </span>
+
+                                <strong
+                                    id="acidentePercent"
+                                >
+                                    0%
+                                </strong>
+
+                            </div>
+
+
+                            <div class="progress">
+
+                                <div
+                                    class="progress-bar"
+                                    id="acidenteBar"
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+
+                <section class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                ORIGEM
+                            </span>
+
+                            <h2>
+                                De onde vêm os leads?
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="service-report">
+
+
+                        <div class="service-row">
+
+                            <div class="service-row-header">
+
+                                <span>
+                                    Site
+                                </span>
+
+                                <strong
+                                    id="sitePercent"
+                                >
+                                    0%
+                                </strong>
+
+                            </div>
+
+
+                            <div class="progress">
+
+                                <div
+                                    class="progress-bar"
+                                    id="siteBar"
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script type="module">
+
+    import {
+        createClient
+    } from
+    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+
+    /* =========================
+       CONFIGURAÇÃO SUPABASE
+    ========================= */
+
+    const SUPABASE_URL =
+        "https://pvhsfrawvgrhnrvrhtrm.supabase.co";
+
+
+    const SUPABASE_KEY =
+        "sb_publishable_bPlKB90OXrDhP90InxLZ-Q_RiVFzNSu";
+
+
+    const supabase =
+        createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+    /* =========================
+       ELEMENTOS
+    ========================= */
+
+    const logoutButton =
+        document.getElementById(
+            "logoutButton"
+        );
+
+
+    const menuButton =
+        document.getElementById(
+            "menuButton"
+        );
+
+
+    const sidebar =
+        document.getElementById(
+            "sidebar"
+        );
+
+
+    const refreshButton =
+        document.getElementById(
+            "refreshButton"
+        );
+
+    const realtimeStatus =
+        document.getElementById(
+            "realtimeStatus"
+        );
+
+
+    const applyFilters =
+        document.getElementById(
+            "applyFilters"
+        );
+
+
+    const clearFilters =
+        document.getElementById(
+            "clearFilters"
+        );
+
+
+    const periodFilter =
+        document.getElementById(
+            "periodFilter"
+        );
+
+
+    const serviceFilter =
+        document.getElementById(
+            "serviceFilter"
+        );
+
+
+    const originFilter =
+        document.getElementById(
+            "originFilter"
+        );
+
+
+    /* =========================
+       LOGIN
+    ========================= */
+
+    const {
+        data: {
+            session
+        }
+    } =
+        await supabase.auth.getSession();
+
+
+    if (!session) {
+
+        window.location.href =
+            "index.html";
+
+        throw new Error(
+            "Usuário não autenticado."
+        );
+
+    }
+
+
+    /* =========================
+       LOGOUT
+    ========================= */
+
+    logoutButton.addEventListener(
+        "click",
+        async () => {
+
+            await supabase.auth.signOut();
+
+            window.location.href =
+                "index.html";
+
+        }
+    );
+
+
+    /* =========================
+       MENU MOBILE
+    ========================= */
+
+    menuButton.addEventListener(
+        "click",
+        () => {
+
+            sidebar.classList.toggle(
+                "open"
+            );
+
+        }
+    );
+
+
+    /* =========================
+       BUSCAR LEADS
+    ========================= */
+
+    async function buscarLeads() {
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await supabase
+                    .from("leads")
+                    .select("*")
+                    .order(
+                        "created_at",
+                        {
+                            ascending: true
+                        }
+                    );
+
+
+            if (error) {
+
+                console.error(
+                    "Erro Supabase:",
+                    error
+                );
+
+                alert(
+                    "Erro ao carregar os leads: " +
+                    error.message
+                );
+
+                return [];
+
+            }
+
+
+            return data || [];
+
+        }
+
+        catch (erro) {
+
+            console.error(
+                "Erro inesperado:",
+                erro
+            );
+
+            alert(
+                "Não foi possível carregar os leads."
+            );
+
+            return [];
+
+        }
+
+    }
+
+
+    /* =========================
+       DATA LOCAL
+    ========================= */
+
+    function inicioDoDia(data = new Date()) {
+
+        return new Date(
+            data.getFullYear(),
+            data.getMonth(),
+            data.getDate()
+        );
+
+    }
+
+
+    function inicioDoMes(data = new Date()) {
+
+        return new Date(
+            data.getFullYear(),
+            data.getMonth(),
+            1
+        );
+
+    }
+
+
+    /* =========================
+       FILTRAR LEADS
+    ========================= */
+
+    function filtrarLeads(
+        leads
+    ) {
+
+        const periodo =
+            periodFilter.value;
+
+
+        const servico =
+            serviceFilter.value;
+
+
+        const origem =
+            originFilter.value;
+
+
+        const agora =
+            new Date();
+
+
+        let resultado =
+            [...leads];
+
+
+        /* =========================
+           PERÍODO
+        ========================= */
+
+        if (
+            periodo !== "all"
+        ) {
+
+            let inicio = null;
+
+
+            if (
+                periodo === "today"
+            ) {
+
+                inicio =
+                    inicioDoDia(
+                        agora
+                    );
+
+            }
+
+
+            else if (
+                periodo === "7"
+            ) {
+
+                inicio =
+                    inicioDoDia(
+                        agora
+                    );
+
+                inicio.setDate(
+                    inicio.getDate() - 6
+                );
+
+            }
+
+
+            else if (
+                periodo === "30"
+            ) {
+
+                inicio =
+                    inicioDoDia(
+                        agora
+                    );
+
+                inicio.setDate(
+                    inicio.getDate() - 29
+                );
+
+            }
+
+
+            else if (
+                periodo === "month"
+            ) {
+
+                inicio =
+                    inicioDoMes(
+                        agora
+                    );
+
+            }
+
+
+            if (inicio) {
+
+                resultado =
+                    resultado.filter(
+                        lead => {
+
+                            if (
+                                !lead.created_at
+                            ) {
+
+                                return false;
+
+                            }
+
+
+                            const dataLead =
+                                new Date(
+                                    lead.created_at
+                                );
+
+
+                            return (
+                                dataLead >=
+                                inicio
+                            );
+
+                        }
+                    );
+
+            }
+
+        }
+
+
+        /* =========================
+           SERVIÇO
+        ========================= */
+
+        if (
+            servico !== "all"
+        ) {
+
+            resultado =
+                resultado.filter(
+                    lead =>
+                        lead.servico ===
+                        servico
+                );
+
+        }
+
+
+        /* =========================
+           ORIGEM
+        ========================= */
+
+        if (
+            origem !== "all"
+        ) {
+
+            resultado =
+                resultado.filter(
+                    lead =>
+                        lead.origem ===
+                        origem
+                );
+
+        }
+
+
+        return resultado;
+
+    }
+
+
+    /* =========================
+       GERAR RELATÓRIO
+    ========================= */
+
+    function gerarRelatorio(
+        todosOsLeads
+    ) {
+
+        const leads =
+            filtrarLeads(
+                todosOsLeads
+            );
+
+
+        const agora =
+            new Date();
+
+
+        const total =
+            leads.length;
+
+
+        const inicioHoje =
+            inicioDoDia(
+                agora
+            );
+
+
+        const inicioMes =
+            inicioDoMes(
+                agora
+            );
+
+        /* =========================
+   PERÍODO ANTERIOR
+========================= */
+
+        let inicioPeriodoAnterior = null;
+        let fimPeriodoAnterior = null;
+
+        const periodoAtual =
+            periodFilter.value;
+
+        if (periodoAtual === "today") {
+
+            inicioPeriodoAnterior =
+                new Date(inicioHoje);
+
+            inicioPeriodoAnterior.setDate(
+                inicioPeriodoAnterior.getDate() - 1
+            );
+
+            fimPeriodoAnterior =
+                new Date(inicioHoje);
+
+        }
+
+        else if (periodoAtual === "7") {
+
+            inicioPeriodoAnterior =
+                new Date(inicioHoje);
+
+            inicioPeriodoAnterior.setDate(
+                inicioPeriodoAnterior.getDate() - 13
+            );
+
+            fimPeriodoAnterior =
+                new Date(inicioHoje);
+
+            fimPeriodoAnterior.setDate(
+                fimPeriodoAnterior.getDate() - 6
+            );
+
+        }
+
+        else if (periodoAtual === "30") {
+
+            inicioPeriodoAnterior =
+                new Date(inicioHoje);
+
+            inicioPeriodoAnterior.setDate(
+                inicioPeriodoAnterior.getDate() - 59
+            );
+
+            fimPeriodoAnterior =
+                new Date(inicioHoje);
+
+            fimPeriodoAnterior.setDate(
+                fimPeriodoAnterior.getDate() - 29
+            );
+
+        }
+
+        else if (periodoAtual === "month") {
+
+            const mesAtual =
+                new Date(
+                    agora.getFullYear(),
+                    agora.getMonth(),
+                    1
+                );
+
+            fimPeriodoAnterior =
+                new Date(mesAtual);
+
+            inicioPeriodoAnterior =
+                new Date(
+                    mesAtual.getFullYear(),
+                    mesAtual.getMonth() - 1,
+                    1
+                );
+
+        }
+
+        /* =========================
+   LEADS DO PERÍODO ANTERIOR
+========================= */
+
+        let leadsPeriodoAnterior = 0;
+
+        if (
+            inicioPeriodoAnterior &&
+            fimPeriodoAnterior
+        ) {
+
+            leadsPeriodoAnterior =
+                todosOsLeads.filter(
+                    lead => {
+
+                        if (
+                            !lead.created_at
+                        ) {
+
+                            return false;
+
+                        }
+
+                        const dataLead =
+                            new Date(
+                                lead.created_at
+                            );
+
+                        return (
+                            dataLead >=
+                            inicioPeriodoAnterior &&
+                            dataLead <
+                            fimPeriodoAnterior
+                        );
+
+                    }
+                ).length;
+
+        }
+
+        /* =========================
+   CRESCIMENTO
+========================= */
+
+        let crescimentoPercent = null;
+
+        if (
+            leadsPeriodoAnterior > 0
+        ) {
+
+            crescimentoPercent =
+                Math.round(
+                    (
+                        (
+                            total -
+                            leadsPeriodoAnterior
+                        ) /
+                        leadsPeriodoAnterior
+                    ) * 100
+                );
+
+        }
+
+
+        /* =========================
+           CONTADORES
+        ========================= */
+
+        const hoje =
+            leads.filter(
+                lead => {
+
+                    if (
+                        !lead.created_at
+                    ) {
+
+                        return false;
+
+                    }
+
+
+                    return (
+                        new Date(
+                            lead.created_at
+                        ) >=
+                        inicioHoje
+                    );
+
+                }
+            ).length;
+
+
+        const mes =
+            leads.filter(
+                lead => {
+
+                    if (
+                        !lead.created_at
+                    ) {
+
+                        return false;
+
+                    }
+
+
+                    return (
+                        new Date(
+                            lead.created_at
+                        ) >=
+                        inicioMes
+                    );
+
+                }
+            ).length;
+
+
+        const consignado =
+            leads.filter(
+                lead =>
+                    lead.servico ===
+                    "Crédito Consignado"
+            ).length;
+
+
+        const acidente =
+            leads.filter(
+                lead =>
+                    lead.servico ===
+                    "Auxílio-Acidente"
+            ).length;
+
+
+        const site =
+            leads.filter(
+                lead =>
+                    lead.origem ===
+                    "Site"
+            ).length;
+
+
+        /* =========================
+   STATUS DOS LEADS
+========================= */
+
+        const novos =
+            leads.filter(
+                lead =>
+                    String(
+                        lead.status || ""
+                    ).trim().toLowerCase() ===
+                    "novo"
+            ).length;
+
+
+        const atendimento =
+            leads.filter(
+                lead =>
+                    String(
+                        lead.status || ""
+                    ).trim().toLowerCase() ===
+                    "em atendimento"
+            ).length;
+
+        const concluidos =
+            leads.filter(
+                lead =>
+                    String(
+                        lead.status || ""
+                    ).trim().toLowerCase() ===
+                    "concluído"
+            ).length;
+
+
+        const cancelados =
+            leads.filter(
+                lead =>
+                    String(
+                        lead.status || ""
+                    ).trim().toLowerCase() ===
+                    "cancelado"
+            ).length;
+
+        /* =========================
+   PORCENTAGEM DOS STATUS
+========================= */
+
+        const novosPercent =
+            total > 0
+                ? Math.round(
+                    (novos / total) * 100
+                )
+                : 0;
+
+
+        const atendimentoPercent =
+            total > 0
+                ? Math.round(
+                    (atendimento / total) * 100
+                )
+                : 0;
+
+        const concluidosPercent =
+            total > 0
+                ? Math.round(
+                    (concluidos / total) * 100
+                )
+                : 0;
+
+
+        const canceladosPercent =
+            total > 0
+                ? Math.round(
+                    (cancelados / total) * 100
+                )
+                : 0;
+
+        /* =========================
+           CARDS
+        ========================= */
+
+        document.getElementById(
+            "totalLeads"
+        ).textContent =
+            total;
+
+
+        document.getElementById(
+            "todayLeads"
+        ).textContent =
+            hoje;
+
+
+        document.getElementById(
+            "monthLeads"
+        ).textContent =
+            mes;
+
+
+        document.getElementById(
+            "consignadoLeads"
+        ).textContent =
+            consignado;
+
+
+        document.getElementById(
+            "acidenteLeads"
+        ).textContent =
+            acidente;
+
+
+        document.getElementById(
+            "siteLeads"
+        ).textContent =
+            site;
+
+
+        document.getElementById(
+            "filteredCount"
+        ).textContent =
+            total;
+
+        /* =========================
+   PERÍODO ANTERIOR — CARD
+========================= */
+
+        document.getElementById(
+            "previousLeads"
+        ).textContent =
+            leadsPeriodoAnterior;
+
+
+        /* =========================
+   MELHOR DIA
+========================= */
+
+        let melhorDia = null;
+        let melhorDiaQuantidade = 0;
+
+        const diasRelatorio = {};
+
+        leads.forEach(
+            lead => {
+
+                if (
+                    !lead.created_at
+                ) {
+                    return;
+                }
+
+                const data =
+                    new Date(
+                        lead.created_at
+                    );
+
+                const chave =
+                    data.toLocaleDateString(
+                        "pt-BR"
+                    );
+
+                if (
+                    !diasRelatorio[chave]
+                ) {
+
+                    diasRelatorio[chave] = 0;
+
+                }
+
+                diasRelatorio[chave]++;
+
+            }
+        );
+
+
+        Object.entries(
+            diasRelatorio
+        ).forEach(
+            ([data, quantidade]) => {
+
+                if (
+                    quantidade >
+                    melhorDiaQuantidade
+                ) {
+
+                    melhorDiaQuantidade =
+                        quantidade;
+
+                    melhorDia =
+                        data;
+
+                }
+
+            }
+        );
+
+        /* =========================
+   MELHOR DIA — CARD
+========================= */
+
+        const bestDay =
+            document.getElementById(
+                "bestDay"
+            );
+
+        const bestDayCount =
+            document.getElementById(
+                "bestDayCount"
+            );
+
+
+        if (
+            melhorDia
+        ) {
+
+            bestDay.textContent =
+                melhorDia;
+
+            bestDayCount.textContent =
+                `${melhorDiaQuantidade} lead(s)`;
+
+        }
+
+        else {
+
+            bestDay.textContent =
+                "—";
+
+            bestDayCount.textContent =
+                "0 leads";
+
+        }
+
+
+        /* =========================
+   CRESCIMENTO — CARD
+========================= */
+
+    const growthPercent =
+        document.getElementById(
+            "growthPercent"
+        );
+
+    const growthText =
+        document.getElementById(
+            "growthText"
+        );
+
+
+    if (
+        crescimentoPercent === null
+    ) {
+
+        growthPercent.textContent =
+            total > 0
+                ? "Novo"
+                : "—";
+
+        growthText.textContent =
+            total > 0
+                ? "Novos leads no período"
+                : "Sem dados para comparação";
+
+    }
+
+    else {
+
+        growthPercent.textContent =
+            `${crescimentoPercent > 0 ? "+" : ""}${crescimentoPercent}%`;
+
+        growthText.textContent =
+            crescimentoPercent > 0
+                ? "Crescimento em relação ao período anterior"
+                : crescimentoPercent < 0
+                    ? "Queda em relação ao período anterior"
+                    : "Sem crescimento em relação ao período anterior";
+
+    }
+
+
+        /* =========================
+   STATUS — ATUALIZAR CARDS
+========================= */
+
+        document.getElementById(
+            "newLeads"
+        ).textContent =
+            novos;
+
+        document.getElementById(
+            "newLeadsStatus"
+        ).textContent =
+            novos;
+
+
+        document.getElementById(
+            "serviceLeads"
+        ).textContent =
+            atendimento;
+
+        document.getElementById(
+            "inProgressLeads"
+        ).textContent =
+            atendimento;
+
+        document.getElementById(
+            "completedLeads"
+        ).textContent =
+            concluidos;
+
+
+        document.getElementById(
+            "cancelledLeads"
+        ).textContent =
+            cancelados;
+
+
+        /* =========================
+           PORCENTAGENS
+        ========================= */
+
+        const consignadoPercent =
+            total > 0
+                ? Math.round(
+                    (
+                        consignado /
+                        total
+                    ) * 100
+                )
+                : 0;
+
+
+        const acidentePercent =
+            total > 0
+                ? Math.round(
+                    (
+                        acidente /
+                        total
+                    ) * 100
+                )
+                : 0;
+
+
+        const sitePercent =
+            total > 0
+                ? Math.round(
+                    (
+                        site /
+                        total
+                    ) * 100
+                )
+                : 0;
+
+
+        document.getElementById(
+            "consignadoPercent"
+        ).textContent =
+            `${consignadoPercent}%`;
+
+
+        document.getElementById(
+            "acidentePercent"
+        ).textContent =
+            `${acidentePercent}%`;
+
+
+        document.getElementById(
+            "sitePercent"
+        ).textContent =
+            `${sitePercent}%`;
+
+
+        document.getElementById(
+            "consignadoBar"
+        ).style.width =
+            `${consignadoPercent}%`;
+
+
+        document.getElementById(
+            "acidenteBar"
+        ).style.width =
+            `${acidentePercent}%`;
+
+
+        document.getElementById(
+            "siteBar"
+        ).style.width =
+            `${sitePercent}%`;
+
+/* =========================
+   BARRAS — STATUS
+========================= */
+
+        document.getElementById(
+            "newLeadsBar"
+        ).style.width =
+            `${novosPercent}%`;
+
+
+        document.getElementById(
+            "inProgressLeadsBar"
+        ).style.width =
+            `${atendimentoPercent}%`;
+
+        document.getElementById(
+            "completedLeadsStatus"
+        ).textContent =
+            concluidos;
+
+
+        document.getElementById(
+            "cancelledLeadsStatus"
+        ).textContent =
+            cancelados;
+
+
+        document.getElementById(
+            "completedLeadsBar"
+        ).style.width =
+            `${concluidosPercent}%`;
+
+
+        document.getElementById(
+            "cancelledLeadsBar"
+        ).style.width =
+            `${canceladosPercent}%`;
+
+
+        /* =========================
+           TEXTO DO FILTRO
+        ========================= */
+
+        const periodoTexto = {
+
+            all:
+                "Todos os leads",
+
+            today:
+                "Leads de hoje",
+
+            7:
+                "Últimos 7 dias",
+
+            30:
+                "Últimos 30 dias",
+
+            month:
+                "Este mês"
+
+        };
+
+
+        const servicoTexto =
+            serviceFilter.value === "all"
+                ? "Todos os serviços"
+                : serviceFilter.value;
+
+
+        const origemTexto =
+            originFilter.value === "all"
+                ? "Todas as origens"
+                : originFilter.value;
+
+
+        document.getElementById(
+            "filterDescription"
+        ).textContent =
+            `${periodoTexto[periodFilter.value]} • ${servicoTexto} • ${origemTexto}`;
+
+/* =========================
+        RANKING E RESUMO
+        ========================= */
+
+        const ranking = [
+            {
+                nome: "Crédito Consignado",
+                quantidade: consignado
+            },
+            {
+                nome: "Auxílio-Acidente",
+                quantidade: acidente
+            }
+        ];
+
+        ranking.sort(
+            (a, b) =>
+                b.quantidade - a.quantidade
+        );
+
+
+        /* =========================
+        RANKING
+        ========================= */
+
+        const serviceRanking =
+            document.getElementById(
+                "serviceRanking"
+            );
+
+        if (serviceRanking) {
+
+            serviceRanking.innerHTML = "";
+
+            ranking.forEach(
+                (item, index) => {
+
+                    const percentual =
+                        total > 0
+                            ? Math.round(
+                                (
+                                    item.quantidade /
+                                    total
+                                ) * 100
+                            )
+                            : 0;
+
+                    const row =
+                        document.createElement(
+                            "div"
+                        );
+
+                    row.className =
+                        "service-row";
+
+                    row.innerHTML = `
+                        <div class="service-row-header">
+                            <span>
+                                ${index + 1}º ${item.nome}
+                            </span>
+
+                            <strong>
+                                ${item.quantidade} lead(s)
+                            </strong>
+                        </div>
+
+                        <div class="progress">
+                            <div
+                                class="progress-bar"
+                                style="width: ${percentual}%"
+                            ></div>
+                        </div>
+                    `;
+
+                    serviceRanking.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =========================
+        RESUMO
+        ========================= */
+
+        const reportSummary =
+            document.getElementById(
+                "reportSummary"
+            );
+
+        if (reportSummary) {
+
+            if (total === 0) {
+
+                reportSummary.textContent =
+                    "Nenhum lead encontrado para os filtros selecionados.";
+
+            }
+
+            else {
+
+                const servicoPrincipal =
+                    ranking[0];
+
+                const percentualPrincipal =
+                    Math.round(
+                        (
+                            servicoPrincipal.quantidade /
+                            total
+                        ) * 100
+                    );
+
+                reportSummary.textContent =
+                    `Foram encontrados ${total} lead(s) no período selecionado. ` +
+                    `O serviço mais procurado foi ${servicoPrincipal.nome}, ` +
+                    `com ${servicoPrincipal.quantidade} lead(s), representando ` +
+                    `${percentualPrincipal}% dos contatos.`;
+
+            }
+
+        }
+
+
+        /* =========================
+           GRÁFICO
+        ========================= */
+
+        gerarGrafico(
+            leads,
+            agora
+        );
+
+    }
+
+
+    /* =========================
+       GRÁFICO 7 DIAS
+    ========================= */
+
+    function gerarGrafico(
+        leads,
+        agora
+    ) {
+
+        const chart =
+            document.getElementById(
+                "chart"
+            );
+
+
+        chart.innerHTML = "";
+
+
+        const dias = [];
+
+
+        for (
+            let i = 6;
+            i >= 0;
+            i--
+        ) {
+
+            const dataDia =
+                inicioDoDia(
+                    agora
+                );
+
+
+            dataDia.setDate(
+                dataDia.getDate() - i
+            );
+
+
+            const proximoDia =
+                new Date(
+                    dataDia
+                );
+
+
+            proximoDia.setDate(
+                proximoDia.getDate() + 1
+            );
+
+
+            const quantidade =
+                leads.filter(
+                    lead => {
+
+                        if (
+                            !lead.created_at
+                        ) {
+
+                            return false;
+
+                        }
+
+
+                        const dataLead =
+                            new Date(
+                                lead.created_at
+                            );
+
+
+                        return (
+                            dataLead >=
+                            dataDia &&
+                            dataLead <
+                            proximoDia
+                        );
+
+                    }
+                ).length;
+
+
+            dias.push({
+
+                data:
+                    dataDia,
+
+                quantidade:
+                    quantidade
+
+            });
+
+        }
+
+
+        const maior =
+            Math.max(
+                ...dias.map(
+                    dia =>
+                        dia.quantidade
+                ),
+                1
+            );
+
+
+        dias.forEach(
+            dia => {
+
+                const coluna =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                coluna.className =
+                    "chart-day";
+
+
+                const valor =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                valor.className =
+                    "chart-value";
+
+
+                valor.textContent =
+                    dia.quantidade;
+
+
+                const barra =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                barra.className =
+                    "chart-bar";
+
+
+                const altura =
+                    dia.quantidade > 0
+                        ? (
+                            dia.quantidade /
+                            maior
+                        ) * 180
+                        : 4;
+
+
+                barra.style.height =
+                    `${altura}px`;
+
+
+                const label =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                label.className =
+                    "chart-label";
+
+
+                label.textContent =
+                    dia.data
+                        .toLocaleDateString(
+                            "pt-BR",
+                            {
+                                weekday:
+                                    "short"
+                            }
+                        )
+                        .replace(
+                            ".",
+                            ""
+                        );
+
+
+                coluna.appendChild(
+                    valor
+                );
+
+
+                coluna.appendChild(
+                    barra
+                );
+
+
+                coluna.appendChild(
+                    label
+                );
+
+
+                chart.appendChild(
+                    coluna
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       CARREGAR DADOS
+    ========================= */
+
+    async function atualizarRelatorio() {
+
+        refreshButton.disabled =
+            true;
+
+
+        refreshButton.textContent =
+            "Atualizando...";
+
+
+        try {
+
+            const leads =
+                await buscarLeads();
+
+
+            gerarRelatorio(
+                leads
+            );
+
+        }
+
+        finally {
+
+            refreshButton.disabled =
+                false;
+
+
+            refreshButton.textContent =
+                "Atualizar";
+
+        }
+
+    }
+
+
+    /* =========================
+       FILTROS
+    ========================= */
+
+    applyFilters.addEventListener(
+        "click",
+        async () => {
+
+            await atualizarRelatorio();
+
+        }
+    );
+
+    /* =========================
+   ATUALIZAÇÃO EM TEMPO REAL
+========================= */
+
+    const leadsChannel =
+        supabase
+            .channel("leads-realtime")
+            .on(
+                "postgres_changes",
+                {
+                    event: "*",
+                    schema: "public",
+                    table: "leads"
+                },
+                async () => {
+
+                    console.log(
+                        "Alteração detectada nos leads."
+                    );
+
+                    await atualizarRelatorio();
+
+                }
+            )
+
+            .subscribe(
+                (status) => {
+
+                    if (!realtimeStatus) {
+                        return;
+                    }
+
+                    if (
+                        status === "SUBSCRIBED"
+                    ) {
+
+                        realtimeStatus.innerHTML = `
+                            <span
+                                style="
+                                    width: 7px;
+                                    height: 7px;
+                                    border-radius: 50%;
+                                    background: #7fbf8f;
+                                    box-shadow: 0 0 8px rgba(127, 191, 143, .7);
+                                "
+                            ></span>
+
+                            Atualização em tempo real ativa
+                        `;
+
+                    }
+
+                    else {
+
+                        realtimeStatus.innerHTML = `
+                            <span
+                                style="
+                                    width: 7px;
+                                    height: 7px;
+                                    border-radius: 50%;
+                                    background: #c98b8b;
+                                "
+                            ></span>
+
+                            Atualização em tempo real indisponível
+                        `;
+
+                    }
+
+                }
+            );
+
+
+    clearFilters.addEventListener(
+        "click",
+        async () => {
+
+            periodFilter.value =
+                "all";
+
+
+            serviceFilter.value =
+                "all";
+
+
+            originFilter.value =
+                "all";
+
+
+            await atualizarRelatorio();
+
+        }
+    );
+
+
+    refreshButton.addEventListener(
+        "click",
+        async () => {
+
+            await atualizarRelatorio();
+
+        }
+    );
+
+
+    /* =========================
+       INICIALIZAÇÃO
+    ========================= */
+
+    await atualizarRelatorio();
+
+</script>
+
+</body>
+
+</html>

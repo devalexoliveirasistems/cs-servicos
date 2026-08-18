@@ -2,57 +2,1285 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Dashboard administrativo da CS Serviços"
+    >
 
     <title>CS Serviços | Dashboard</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="../assets/images/logo-cs-servicos.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="dashboard.css"
+    >
+
 </head>
 
 <body>
 
-    <h1>Dashboard CS Serviços</h1>
+<div class="dashboard">
 
-    <p>Área administrativa protegida.</p>
 
-    <button id="logoutButton">
-        Sair
-    </button>
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
 
-    <script type="module">
+    <aside
+        class="sidebar"
+        id="sidebar"
+    >
 
-        import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+        <div class="sidebar-brand">
 
-        const SUPABASE_URL =
-            "https://pvhsfrawvgrhnrvrhtrm.supabase.co";
+            <img
+                src="../assets/images/logo-cs-servicos.png"
+                alt="CS Serviços"
+                class="sidebar-logo"
+            >
 
-        const SUPABASE_KEY =
-            "sb_publishable_bPlKB90OXrDhP90InxLZ-Q_RiVFzNSu";
+            <div>
 
-        const supabase = createClient(
+                <strong>
+                    CS SERVIÇOS
+                </strong>
+
+                <span>
+                    Área Administrativa
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="dashboard.html"
+                class="nav-item active"
+            >
+
+                <span class="nav-icon">
+                    ◈
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a
+                href="leads.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                <span>
+                    Leads
+                </span>
+
+            </a>
+
+            <a
+                href="leads.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                <span>
+                    Contatos
+                </span>
+
+            </a>
+
+
+            <a
+                href="relatorios.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ◫
+                </span>
+
+                <span>
+                    Relatórios
+                </span>
+
+            </a>
+
+
+            <a
+                href="configuracoes.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ⚙
+                </span>
+
+                <span>
+                    Configurações
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                type="button"
+                id="logoutButton"
+                class="logout-button"
+            >
+
+                <span>
+                    ⇥
+                </span>
+
+                Sair
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         PRINCIPAL
+    ========================= -->
+
+    <main class="main-content">
+
+
+        <!-- =========================
+             TOPBAR
+        ========================= -->
+
+        <header class="topbar">
+
+            <button
+                type="button"
+                id="menuButton"
+                class="menu-button"
+                aria-label="Abrir menu"
+            >
+                ☰
+            </button>
+
+
+            <div class="topbar-title">
+
+                <span>
+                    Painel administrativo
+                </span>
+
+                <h1>
+                    Dashboard
+                </h1>
+
+                <span
+                    id="realtimeStatus"
+                    style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 6px;
+                        margin-top: 6px;
+                        color: #7fbf8f;
+                        font-size: 11px;
+                        font-weight: 600;
+                    "
+                >
+
+                    <span
+                        style="
+                            width: 7px;
+                            height: 7px;
+                            border-radius: 50%;
+                            background: #7fbf8f;
+                            box-shadow: 0 0 8px rgba(127,191,143,.7);
+                        "
+                    ></span>
+
+                    Conectando...
+
+                </span>
+
+            </div>
+
+
+            <div class="user-area">
+
+                <div class="user-avatar">
+                    A
+                </div>
+
+                <div class="user-info">
+
+                    <strong>
+                        Administrador
+                    </strong>
+
+                    <span>
+                        CS Serviços
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             CONTEÚDO
+        ========================= -->
+
+        <section class="content">
+
+
+            <!-- BOAS-VINDAS -->
+
+            <div class="welcome">
+
+                <div>
+
+                    <span class="eyebrow">
+                        VISÃO GERAL
+                    </span>
+
+                    <h2>
+                        Bem-vindo ao painel 👋
+                    </h2>
+
+                    <p>
+                        Acompanhe os contatos e oportunidades
+                        da CS Serviços.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 CARDS
+            ========================= -->
+
+            <div class="stats-grid">
+
+
+                <!-- TOTAL -->
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">
+                        ◉
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span>
+                            Total de leads
+                        </span>
+
+                        <strong id="totalLeads">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- NOVOS -->
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">
+                        ✦
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span>
+                            Novos leads
+                        </span>
+
+                        <strong id="newLeads">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ATENDIMENTO -->
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">
+                        ☎
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span>
+                            Em atendimento
+                        </span>
+
+                        <strong id="serviceLeads">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- CONCLUIDOS -->
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">
+                        ✓
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span>
+                            Concluídos
+                        </span>
+
+                        <strong id="convertedLeads">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+                <!-- CANCELADOS -->
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">
+                        ✕
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span>
+                            Cancelados
+                        </span>
+
+                        <strong id="cancelledLeads">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+
+            <!-- =========================
+                 RESUMO RÁPIDO
+            ========================= -->
+
+            <div class="stats-grid">
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">
+                        $
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span>
+                            Crédito Consignado
+                        </span>
+
+                        <strong id="consignadoLeads">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">
+                        +
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span>
+                            Auxílio-Acidente
+                        </span>
+
+                        <strong id="acidenteLeads">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">
+                        ◷
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span>
+                            Leads hoje
+                        </span>
+
+                        <strong id="todayLeads">
+                            0
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">
+                        %
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span>
+                            Taxa de conversão
+                        </span>
+
+                        <strong id="conversionRate">
+                            0%
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+
+            <!-- =========================
+                 ÚLTIMOS LEADS
+            ========================= -->
+
+            <section class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            ATIVIDADE
+                        </span>
+
+                        <h2>
+                            Últimos leads
+                        </h2>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="panel-button"
+                        id="viewAllButton"
+                    >
+                        Ver todos
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="recentLeads"
+                    style="
+                        display:flex;
+                        flex-direction:column;
+                        gap:10px;
+                    "
+                >
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            ◇
+                        </div>
+
+                        <h3>
+                            Carregando leads...
+                        </h3>
+
+                        <p>
+                            Buscando os contatos recebidos.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script type="module">
+
+    import {
+        createClient
+    } from
+    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+
+    /* =========================
+       CONFIGURAÇÃO
+    ========================= */
+
+    const SUPABASE_URL =
+        "https://pvhsfrawvgrhnrvrhtrm.supabase.co";
+
+
+    const SUPABASE_KEY =
+        "sb_publishable_bPlKB90OXrDhP90InxLZ-Q_RiVFzNSu";
+
+
+    const supabase =
+        createClient(
             SUPABASE_URL,
             SUPABASE_KEY
         );
 
-        const {
-            data: { session }
-        } = await supabase.auth.getSession();
 
-        // Se não estiver logado, volta para a tela de login
-        if (!session) {
-            window.location.href = "index.html";
+    /* =========================
+       ELEMENTOS
+    ========================= */
+
+    const logoutButton =
+        document.getElementById(
+            "logoutButton"
+        );
+
+
+    const menuButton =
+        document.getElementById(
+            "menuButton"
+        );
+
+
+    const sidebar =
+        document.getElementById(
+            "sidebar"
+        );
+
+
+    const viewAllButton =
+        document.getElementById(
+            "viewAllButton"
+        );
+
+
+    const realtimeStatus =
+        document.getElementById(
+            "realtimeStatus"
+        );
+
+
+    /* =========================
+       LOGIN
+    ========================= */
+
+    const {
+        data: {
+            session
+        }
+    } =
+        await supabase.auth.getSession();
+
+
+    if (!session) {
+
+        window.location.href =
+            "index.html";
+
+        throw new Error(
+            "Usuário não autenticado."
+        );
+
+    }
+
+
+    /* =========================
+       LOGOUT
+    ========================= */
+
+    logoutButton.addEventListener(
+        "click",
+        async () => {
+
+            await supabase.auth.signOut();
+
+            window.location.href =
+                "index.html";
+
+        }
+    );
+
+
+    /* =========================
+       MENU MOBILE
+    ========================= */
+
+    menuButton.addEventListener(
+        "click",
+        () => {
+
+            sidebar.classList.toggle(
+                "open"
+            );
+
+        }
+    );
+
+
+    /* =========================
+       FUNÇÕES
+    ========================= */
+
+    function normalizarStatus(
+        status
+    ) {
+
+        return String(
+            status || ""
+        )
+            .trim()
+            .toLowerCase();
+
+    }
+
+
+    function inicioDoDia(
+        data = new Date()
+    ) {
+
+        return new Date(
+            data.getFullYear(),
+            data.getMonth(),
+            data.getDate()
+        );
+
+    }
+
+
+    /* =========================
+       BUSCAR LEADS
+    ========================= */
+
+    async function buscarLeads() {
+
+        const {
+            data,
+            error
+        } =
+            await supabase
+                .from("leads")
+                .select("*")
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(
+                "Erro ao buscar leads:",
+                error
+            );
+
+            throw error;
+
         }
 
-        // Logout
-        document
-            .getElementById("logoutButton")
-            .addEventListener("click", async () => {
 
-                await supabase.auth.signOut();
+        return data || [];
 
-                window.location.href = "index.html";
-            });
+    }
 
-    </script>
+
+    /* =========================
+       ATUALIZAR CARDS
+    ========================= */
+
+    function atualizarCards(
+        leads
+    ) {
+
+        const total =
+            leads.length;
+
+
+        const novos =
+            leads.filter(
+                lead =>
+                    normalizarStatus(
+                        lead.status
+                    ) === "novo"
+            ).length;
+
+
+        const atendimento =
+            leads.filter(
+                lead =>
+                    normalizarStatus(
+                        lead.status
+                    ) === "em atendimento"
+            ).length;
+
+
+        const concluidos =
+            leads.filter(
+                lead =>
+                    normalizarStatus(
+                        lead.status
+                    ) === "concluído"
+            ).length;
+
+        const cancelados =
+            leads.filter(
+                lead =>
+                    normalizarStatus(
+                        lead.status
+                    ) === "cancelado"
+            ).length;
+
+
+        const consignado =
+            leads.filter(
+                lead =>
+                    lead.servico ===
+                    "Crédito Consignado"
+            ).length;
+
+
+        const acidente =
+            leads.filter(
+                lead =>
+                    lead.servico ===
+                    "Auxílio-Acidente"
+            ).length;
+
+
+        const hojeInicio =
+            inicioDoDia();
+
+
+        const leadsHoje =
+            leads.filter(
+                lead => {
+
+                    if (
+                        !lead.created_at
+                    ) {
+
+                        return false;
+
+                    }
+
+
+                    return (
+                        new Date(
+                            lead.created_at
+                        ) >=
+                        hojeInicio
+                    );
+
+                }
+            ).length;
+
+
+        const conversao =
+            total > 0
+                ? Math.round(
+                    (
+                        concluidos /
+                        total
+                    ) * 100
+                )
+                : 0;
+
+
+        document.getElementById(
+            "totalLeads"
+        ).textContent =
+            total;
+
+
+        document.getElementById(
+            "newLeads"
+        ).textContent =
+            novos;
+
+
+        document.getElementById(
+            "serviceLeads"
+        ).textContent =
+            atendimento;
+
+
+        document.getElementById(
+            "convertedLeads"
+        ).textContent =
+            concluidos;
+
+        document.getElementById(
+            "cancelledLeads"
+        ).textContent =
+            cancelados;
+
+
+        document.getElementById(
+            "consignadoLeads"
+        ).textContent =
+            consignado;
+
+
+        document.getElementById(
+            "acidenteLeads"
+        ).textContent =
+            acidente;
+
+
+        document.getElementById(
+            "todayLeads"
+        ).textContent =
+            leadsHoje;
+
+
+        document.getElementById(
+            "conversionRate"
+        ).textContent =
+            `${conversao}%`;
+
+    }
+
+
+    /* =========================
+       FORMATAR DATA
+    ========================= */
+
+    function formatarData(
+        data
+    ) {
+
+        if (!data) {
+
+            return "";
+
+        }
+
+
+        const dataObj =
+            new Date(data);
+
+
+        return dataObj.toLocaleString(
+            "pt-BR",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
+
+    }
+
+
+    /* =========================
+       RENDERIZAR LEADS
+    ========================= */
+
+    function renderizarLeads(
+        leads
+    ) {
+
+        const container =
+            document.getElementById(
+                "recentLeads"
+            );
+
+
+        if (!leads.length) {
+
+            container.innerHTML = `
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        ◇
+                    </div>
+
+                    <h3>
+                        Nenhum lead ainda
+                    </h3>
+
+                    <p>
+                        Quando um cliente entrar em contato
+                        pelo site, ele aparecerá aqui.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        const ultimosLeads =
+            leads.slice(
+                0,
+                5
+            );
+
+
+        container.innerHTML = "";
+
+
+        ultimosLeads.forEach(
+            lead => {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.style.cssText = `
+
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    gap:15px;
+                    padding:16px 18px;
+                    background:var(--card);
+                    border:1px solid #252525;
+                    border-radius:var(--radius);
+
+                `;
+
+
+                const nome =
+                    lead.nome ||
+                    "Lead sem nome";
+
+
+                const servico =
+                    lead.servico ||
+                    "Serviço não informado";
+
+
+                const status =
+                    lead.status ||
+                    "Novo";
+
+
+                item.innerHTML = `
+
+                    <div
+                        style="
+                            min-width:0;
+                            flex:1;
+                        "
+                    >
+
+                        <strong
+                            style="
+                                display:block;
+                                color:var(--text);
+                                font-size:14px;
+                                margin-bottom:5px;
+                            "
+                        >
+                            ${nome}
+                        </strong>
+
+                        <span
+                            style="
+                                display:block;
+                                color:#888;
+                                font-size:12px;
+                                margin-bottom:4px;
+                            "
+                        >
+                            ${servico}
+                        </span>
+
+                        <small
+                            style="
+                                color:#666;
+                                font-size:11px;
+                            "
+                        >
+                            ${formatarData(
+                                lead.created_at
+                            )}
+                        </small>
+
+                    </div>
+
+
+                    <span
+                        style="
+                            flex-shrink:0;
+                            padding:6px 10px;
+                            border-radius:20px;
+                            border:1px solid #333;
+                            color:var(--gold);
+                            font-size:11px;
+                            font-weight:700;
+                        "
+                    >
+                        ${status}
+                    </span>
+
+                `;
+
+
+                container.appendChild(
+                    item
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       ATUALIZAR DASHBOARD
+    ========================= */
+
+    async function atualizarDashboard() {
+
+        try {
+
+            const leads =
+                await buscarLeads();
+
+
+            atualizarCards(
+                leads
+            );
+
+
+            renderizarLeads(
+                leads
+            );
+
+
+            console.log(
+                "Dashboard atualizado:",
+                leads.length,
+                "leads"
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Erro no Dashboard:",
+                error
+            );
+
+
+            document.getElementById(
+                "recentLeads"
+            ).innerHTML = `
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        !
+                    </div>
+
+                    <h3>
+                        Erro ao carregar os leads
+                    </h3>
+
+                    <p>
+                        Não foi possível consultar
+                        os contatos no momento.
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    /* =========================
+       IR PARA LEADS
+    ========================= */
+
+    viewAllButton.addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "leads.html";
+
+        }
+    );
+
+
+    /* =========================
+       REALTIME
+    ========================= */
+
+    const leadsChannel =
+        supabase
+            .channel(
+                "dashboard-leads"
+            )
+            .on(
+                "postgres_changes",
+                {
+                    event: "*",
+                    schema: "public",
+                    table: "leads"
+                },
+                async () => {
+
+                    console.log(
+                        "Alteração detectada na tabela leads."
+                    );
+
+
+                    await atualizarDashboard();
+
+                }
+            )
+            .subscribe(
+                status => {
+
+                    if (
+                        status ===
+                        "SUBSCRIBED"
+                    ) {
+
+                        realtimeStatus.innerHTML = `
+
+                            <span
+                                style="
+                                    width:7px;
+                                    height:7px;
+                                    border-radius:50%;
+                                    background:#7fbf8f;
+                                    box-shadow:0 0 8px rgba(127,191,143,.7);
+                                "
+                            ></span>
+
+                            Atualização em tempo real ativa
+
+                        `;
+
+                    }
+
+                    else {
+
+                        realtimeStatus.innerHTML = `
+
+                            <span
+                                style="
+                                    width:7px;
+                                    height:7px;
+                                    border-radius:50%;
+                                    background:#c98b8b;
+                                "
+                            ></span>
+
+                            Atualização em tempo real indisponível
+
+                        `;
+
+                    }
+
+                }
+            );
+
+
+    /* =========================
+       INICIALIZAÇÃO
+    ========================= */
+
+    await atualizarDashboard();
+
+</script>
 
 </body>
 

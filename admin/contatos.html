@@ -1,0 +1,3255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Contatos da CS Serviços"
+    >
+
+    <title>CS Serviços | Contatos</title>
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="../assets/images/logo-cs-servicos.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="dashboard.css"
+    >
+
+    <style>
+
+        /* =========================
+           CONTATOS
+        ========================= */
+
+        .contacts-toolbar {
+            display: grid;
+
+            grid-template-columns:
+                minmax(240px, 1fr)
+                190px
+                190px
+                180px
+                auto;
+
+            align-items: end;
+
+            gap: 12px;
+
+            margin-bottom: 20px;
+            padding: 16px;
+
+            background: var(--card);
+
+            border: 1px solid #252525;
+            border-radius: var(--radius);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+
+        .filter-group label {
+            color: #777;
+
+            font-size: 10px;
+            font-weight: 700;
+
+            letter-spacing: .1em;
+
+            text-transform: uppercase;
+        }
+
+
+        .search-box {
+
+            flex: 1;
+            position: relative;
+
+        }
+
+
+        .search-box input {
+
+            width: 100%;
+            height: 44px;
+
+            padding: 0 14px 0 42px;
+
+            border: 1px solid #303030;
+            border-radius: 9px;
+
+            background: #101010;
+
+            color: var(--text);
+
+            outline: none;
+
+            font-size: 13px;
+
+        }
+
+
+        .search-box input:focus {
+
+            border-color: var(--gold);
+
+        }
+
+
+        .search-icon {
+
+            position: absolute;
+
+            left: 14px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #777;
+
+            pointer-events: none;
+
+        }
+
+
+        .status-filter {
+
+            width: 190px;
+
+            height: 44px;
+
+            padding: 0 12px;
+
+            border: 1px solid #303030;
+            border-radius: 9px;
+
+            background: #101010;
+
+            color: var(--text);
+
+            outline: none;
+
+            font-size: 13px;
+
+            cursor: pointer;
+
+        }
+
+
+        .status-filter:focus {
+
+            border-color: var(--gold);
+
+        }
+
+
+        .contacts-count {
+            height: 44px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 12px;
+
+            border-left: 1px solid #252525;
+
+            color: #777;
+
+            font-size: 12px;
+
+            white-space: nowrap;
+        }
+
+
+        .contacts-count strong {
+            margin-right: 4px;
+
+            color: var(--gold);
+
+            font-size: 15px;
+        }
+
+        .clear-filters-button {
+            height: 44px;
+
+            padding: 0 14px;
+
+            border: 1px solid #303030;
+            border-radius: 9px;
+
+            background: #111;
+
+            color: #888;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            white-space: nowrap;
+
+            transition:
+                border-color .2s ease,
+                color .2s ease,
+                background .2s ease;
+        }
+
+
+        .clear-filters-button:hover {
+            border-color: var(--gold);
+
+            color: var(--gold);
+
+            background: rgba(212, 175, 55, .06);
+        }
+
+
+        /* =========================
+           TABELA
+        ========================= */
+
+        .contacts-panel {
+
+            overflow: hidden;
+
+        }
+
+
+        .table-wrapper {
+
+            width: 100%;
+
+            overflow-x: auto;
+
+        }
+
+
+        .contacts-table {
+
+            width: 100%;
+
+            min-width: 850px;
+
+            border-collapse: collapse;
+
+        }
+
+
+        .contacts-table th {
+            padding: 13px 18px;
+
+            background: #0e0e0e;
+
+            border-bottom: 1px solid #292929;
+
+            color: #777;
+
+            font-size: 10px;
+            font-weight: 700;
+
+            letter-spacing: .12em;
+
+            text-align: left;
+            text-transform: uppercase;
+
+            white-space: nowrap;
+        }
+
+
+        .contacts-table td {
+            padding: 15px 18px;
+
+            border-bottom: 1px solid #1f1f1f;
+
+            color: #aaa;
+
+            font-size: 13px;
+
+            vertical-align: middle;
+        }
+
+
+        .contacts-table tbody tr {
+
+            transition:
+                background .2s ease;
+
+        }
+
+
+        .contacts-table tbody tr:hover {
+            background: rgba(212, 175, 55, .035);
+        }
+
+
+        .contacts-table tbody tr:last-child td {
+
+            border-bottom: none;
+
+        }
+
+
+        .contact-name {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+        }
+
+
+        .contact-avatar {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            border-radius: 50%;
+
+            background: rgba(212, 175, 55, .08);
+
+            border: 1px solid rgba(212, 175, 55, .22);
+
+            color: var(--gold);
+
+            font-size: 11px;
+            font-weight: 800;
+
+            box-shadow:
+                0 0 0 3px rgba(212, 175, 55, .025);
+        }
+
+
+        .contact-info strong {
+            display: block;
+
+            margin-bottom: 4px;
+
+            color: #e5e5e5;
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+
+        .contact-info span {
+
+            color: #666;
+
+            font-size: 11px;
+
+        }
+
+
+        .whatsapp-link {
+
+            color: #7fbf8f;
+
+            text-decoration: none;
+
+        }
+
+
+        .whatsapp-link:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            padding: 6px 9px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+        }
+
+
+        .status-badge::before {
+
+            content: "";
+
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+        }
+
+
+        .status-novo {
+
+            background: rgba(212, 175, 55, .10);
+
+            color: var(--gold);
+
+        }
+
+
+        .status-novo::before {
+
+            background: var(--gold);
+
+        }
+
+
+        .status-atendimento {
+
+            background: rgba(88, 150, 220, .10);
+
+            color: #78a9dc;
+
+        }
+
+
+        .status-atendimento::before {
+
+            background: #78a9dc;
+
+        }
+
+
+        .status-convertido {
+
+            background: rgba(127, 191, 143, .10);
+
+            color: #7fbf8f;
+
+        }
+
+
+        .status-convertido::before {
+
+            background: #7fbf8f;
+
+        }
+
+
+        .status-perdido {
+
+            background: rgba(201, 139, 139, .10);
+
+            color: #c98b8b;
+
+        }
+
+
+        .status-perdido::before {
+
+            background: #c98b8b;
+
+        }
+
+
+        /* =========================
+           AÇÕES
+        ========================= */
+
+        .contact-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+        }
+
+
+        .action-button {
+
+            width: 34px;
+            height: 34px;
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid #303030;
+
+            border-radius: 8px;
+
+            background: #111;
+
+            color: #aaa;
+
+            cursor: pointer;
+
+            transition:
+                border-color .2s ease,
+                color .2s ease,
+                background .2s ease;
+
+        }
+
+
+        .action-button:hover {
+
+            border-color: #555;
+
+            color: var(--text);
+
+            background: #181818;
+
+        }
+
+
+        .action-button.whatsapp:hover {
+
+            border-color: #4c8f5c;
+
+            color: #7fbf8f;
+
+        }
+
+
+        .action-button.danger:hover {
+
+            border-color: #8f4c4c;
+
+            color: #c98b8b;
+
+        }
+
+
+        /* =========================
+           VAZIO
+        ========================= */
+
+        .empty-state {
+
+            padding: 60px 20px;
+
+            text-align: center;
+
+        }
+
+
+        .empty-state-icon {
+
+            margin-bottom: 12px;
+
+            color: #555;
+
+            font-size: 32px;
+
+        }
+
+
+        .empty-state strong {
+
+            display: block;
+
+            margin-bottom: 6px;
+
+            color: #aaa;
+
+            font-size: 14px;
+
+        }
+
+
+        .empty-state span {
+
+            color: #666;
+
+            font-size: 12px;
+
+        }
+
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 9999;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background: rgba(0, 0, 0, .75);
+
+            backdrop-filter: blur(5px);
+
+        }
+
+
+        .modal-overlay.open {
+
+            display: flex;
+
+        }
+
+
+        .modal {
+
+            width: 100%;
+            max-width: 520px;
+
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+            padding: 24px;
+
+            background: #151515;
+
+            border: 1px solid #303030;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, .55);
+
+        }
+
+
+        .modal-header {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .modal-header span {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: var(--gold);
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: .15em;
+
+        }
+
+
+        .modal-header h2 {
+
+            color: var(--text);
+
+            font-size: 20px;
+
+        }
+
+
+        .modal-close {
+
+            width: 34px;
+            height: 34px;
+
+            border: 1px solid #303030;
+
+            border-radius: 8px;
+
+            background: transparent;
+
+            color: #888;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+        }
+
+
+        .modal-close:hover {
+
+            color: var(--text);
+
+            border-color: #555;
+
+        }
+
+
+        .detail-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 14px;
+
+        }
+
+
+        .detail-item {
+
+            padding: 14px;
+
+            background: #101010;
+
+            border: 1px solid #252525;
+
+            border-radius: 9px;
+
+        }
+
+
+        .detail-item.full {
+
+            grid-column: 1 / -1;
+
+        }
+
+
+        .detail-item span {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: #666;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .detail-item strong {
+
+            color: #ddd;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            word-break: break-word;
+
+        }
+
+
+        .modal-actions {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .modal-button {
+
+            height: 40px;
+
+            padding: 0 16px;
+
+            border-radius: 8px;
+
+            border: 1px solid #303030;
+
+            background: transparent;
+
+            color: #aaa;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+        .modal-button.primary {
+
+            border-color: var(--gold);
+
+            background: var(--gold);
+
+            color: #111;
+
+        }
+
+
+        .modal-button.danger {
+
+            border-color: #633d3d;
+
+            color: #c98b8b;
+
+        }
+
+
+        .modal-button:hover {
+
+            opacity: .9;
+
+        }
+
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        .loading {
+
+            padding: 50px 20px;
+
+            color: #666;
+
+            text-align: center;
+
+            font-size: 13px;
+
+        }
+
+
+        /* =========================
+           RESPONSIVO
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .contacts-toolbar {
+
+                grid-template-columns:
+                    1fr
+                    1fr;
+
+                align-items: stretch;
+
+            }
+
+
+            .search-box {
+
+                grid-column: 1 / -1;
+
+            }
+
+
+            .contacts-count {
+
+                grid-column: 1 / -1;
+
+                justify-content: flex-end;
+
+                border-left: none;
+
+                border-top: 1px solid #252525;
+
+                padding-top: 12px;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .detail-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .detail-item.full {
+
+                grid-column: auto;
+
+            }
+
+
+            .modal {
+
+                padding: 18px;
+
+            }
+
+        }
+
+            .status-select {
+                min-width: 125px;
+                height: 34px;
+                padding: 0 10px;
+
+                border: 1px solid #303030;
+                border-radius: 8px;
+
+                background: #111;
+                color: #ccc;
+
+                font-size: 11px;
+                font-weight: 600;
+
+                outline: none;
+                cursor: pointer;
+
+                transition:
+                    border-color .2s ease,
+                    background .2s ease,
+                    color .2s ease;
+            }
+
+            .status-select:hover {
+                border-color: #4a4a4a;
+                background: #161616;
+            }
+
+            .status-select:focus {
+                border-color: var(--gold);
+            }
+
+            .status-select option {
+                background: #151515;
+                color: #ddd;
+            }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="dashboard">
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
+    <aside
+        class="sidebar"
+        id="sidebar"
+    >
+
+        <div class="sidebar-brand">
+
+            <img
+                src="../assets/images/logo-cs-servicos.png"
+                alt="CS Serviços"
+                class="sidebar-logo"
+            >
+
+            <div>
+
+                <strong>
+                    CS SERVIÇOS
+                </strong>
+
+                <span>
+                    Área Administrativa
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="dashboard.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ◈
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a
+                href="leads.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                Leads
+
+            </a>
+
+
+            <a
+                href="contatos.html"
+                class="nav-item active"
+            >
+
+                <span class="nav-icon">
+                    ◎
+                </span>
+
+                Contatos
+
+            </a>
+
+
+            <a
+                href="relatorios.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ◫
+                </span>
+
+                Relatórios
+
+            </a>
+
+
+            <a
+                href="configuracoes.html"
+                class="nav-item"
+            >
+
+                <span class="nav-icon">
+                    ⚙
+                </span>
+
+                Configurações
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                type="button"
+                id="logoutButton"
+                class="logout-button"
+            >
+
+                <span>
+                    ⇥
+                </span>
+
+                Sair
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         PRINCIPAL
+    ========================= -->
+
+    <main class="main-content">
+
+
+        <header class="topbar">
+
+            <button
+                type="button"
+                id="menuButton"
+                class="menu-button"
+                aria-label="Abrir menu"
+            >
+                ☰
+            </button>
+
+
+            <div class="topbar-title">
+
+                <span>
+                    Painel administrativo
+                </span>
+
+                <h1>
+                    Contatos
+                </h1>
+
+                <span
+                    id="realtimeStatus"
+                    style="
+                        display:inline-flex;
+                        align-items:center;
+                        gap:6px;
+                        margin-top:6px;
+                        color:#7fbf8f;
+                        font-size:11px;
+                        font-weight:600;
+                    "
+                >
+
+                    <span
+                        style="
+                            width:7px;
+                            height:7px;
+                            border-radius:50%;
+                            background:#7fbf8f;
+                            box-shadow:0 0 8px rgba(127,191,143,.7);
+                        "
+                    ></span>
+
+                    Atualização em tempo real ativa
+
+                </span>
+
+            </div>
+
+
+            <div class="user-area">
+
+                <div class="user-avatar">
+                    A
+                </div>
+
+                <div class="user-info">
+
+                    <strong>
+                        Administrador
+                    </strong>
+
+                    <span>
+                        CS Serviços
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             CONTEÚDO
+        ========================= -->
+
+        <section class="content">
+
+
+            <div class="welcome">
+
+                <span class="eyebrow">
+                    CLIENTES
+                </span>
+
+                <h2>
+                    Contatos recebidos
+                </h2>
+
+                <p>
+                    Consulte, acompanhe e gerencie os contatos
+                    recebidos pela CS Serviços.
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 BARRA DE BUSCA
+            ========================= -->
+
+            <section class="contacts-toolbar">
+
+            <!-- BUSCA -->
+            <div class="filter-group search-box">
+
+                <span class="search-icon">⌕</span>
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Buscar nome, WhatsApp ou serviço..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- STATUS -->
+            <div class="filter-group">
+
+                <label for="statusFilter">
+                    Status
+                </label>
+
+                <select
+                    id="statusFilter"
+                    class="status-filter"
+                >
+
+                    <option value="all">
+                        Todos
+                    </option>
+
+                    <option value="novo">
+                        Novo
+                    </option>
+
+                    <option value="em atendimento">
+                        Em atendimento
+                    </option>
+
+                    <option value="concluido">
+                        Concluído
+                    </option>
+
+                    <option value="cancelado">
+                        Cancelado
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- SERVIÇO -->
+            <div class="filter-group">
+
+                <label for="serviceFilter">
+                    Serviço
+                </label>
+
+                <select
+                    id="serviceFilter"
+                    class="status-filter"
+                >
+
+                    <option value="all">
+                        Todos
+                    </option>
+
+                    <option value="Crédito Consignado">
+                        Crédito Consignado
+                    </option>
+
+                    <option value="Auxílio-Acidente">
+                        Auxílio-Acidente
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- PERÍODO -->
+            <div class="filter-group">
+
+                <label for="periodFilter">
+                    Período
+                </label>
+
+                <select
+                    id="periodFilter"
+                    class="status-filter"
+                >
+
+                    <option value="all">
+                        Todos
+                    </option>
+
+                    <option value="today">
+                        Hoje
+                    </option>
+
+                    <option value="7">
+                        Últimos 7 dias
+                    </option>
+
+                    <option value="30">
+                        Últimos 30 dias
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- LIMPAR FILTROS -->
+            <button
+                type="button"
+                id="clearFiltersButton"
+                class="clear-filters-button"
+            >
+                Limpar filtros
+            </button>
+
+            <!-- CONTADOR -->
+            <div class="contacts-count">
+
+                <strong id="contactsCount">
+                    0
+                </strong>
+
+                contato(s)
+
+            </div>
+
+        </section>
+
+
+            <!-- =========================
+                 TABELA
+            ========================= -->
+
+        <section class="panel contacts-panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        CONTATOS
+                    </span>
+
+                    <h2>
+                        Lista de contatos
+                    </h2>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="panel-button"
+                    id="refreshButton"
+                >
+                    Atualizar
+                </button>
+
+            </div>
+
+
+            <div
+                class="table-wrapper"
+                id="tableContainer"
+            >
+
+                 <div class="loading">
+                    Carregando contatos...
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </section>
+
+</main>
+
+</div>
+
+
+<!-- =========================
+     MODAL
+========================= -->
+
+<div
+    class="modal-overlay"
+    id="modalOverlay"
+>
+
+    <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <div class="modal-header">
+
+            <div>
+
+                <span>
+                    CONTATO
+                </span>
+
+                <h2 id="modalTitle">
+                    Detalhes
+                </h2>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="modal-close"
+                id="modalClose"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            class="detail-grid"
+            id="modalDetails"
+        ></div>
+
+
+        <div class="modal-actions">
+
+            <button
+                type="button"
+                class="modal-button"
+                id="modalCancel"
+            >
+                Fechar
+            </button>
+
+
+            <button
+                type="button"
+                class="modal-button primary"
+                id="modalWhatsApp"
+            >
+                Abrir WhatsApp
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script type="module">
+
+    import {
+        createClient
+    } from
+    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+
+    /* =========================
+       CONFIGURAÇÃO
+    ========================= */
+
+    const SUPABASE_URL =
+        "https://pvhsfrawvgrhnrvrhtrm.supabase.co";
+
+
+    const SUPABASE_KEY =
+        "sb_publishable_bPlKB90OXrDhP90InxLZ-Q_RiVFzNSu";
+
+
+    const supabase =
+        createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+    /* =========================
+       ELEMENTOS
+    ========================= */
+
+    const logoutButton =
+        document.getElementById(
+            "logoutButton"
+        );
+
+
+    const menuButton =
+        document.getElementById(
+            "menuButton"
+        );
+
+
+    const sidebar =
+        document.getElementById(
+            "sidebar"
+        );
+
+
+    const searchInput =
+        document.getElementById(
+            "searchInput"
+        );
+
+
+    const statusFilter =
+        document.getElementById(
+            "statusFilter"
+        );
+
+    const serviceFilter =
+    document.getElementById(
+        "serviceFilter"
+    );
+
+
+    const periodFilter =
+        document.getElementById(
+            "periodFilter"
+        );
+
+    const clearFiltersButton =
+    document.getElementById(
+        "clearFiltersButton"
+    );
+
+    const contactsCount =
+        document.getElementById(
+            "contactsCount"
+        );
+
+
+    const tableContainer =
+        document.getElementById(
+            "tableContainer"
+        );
+
+
+    const refreshButton =
+        document.getElementById(
+            "refreshButton"
+        );
+
+
+    const modalOverlay =
+        document.getElementById(
+            "modalOverlay"
+        );
+
+
+    const modalClose =
+        document.getElementById(
+            "modalClose"
+        );
+
+
+    const modalCancel =
+        document.getElementById(
+            "modalCancel"
+        );
+
+
+    const modalTitle =
+        document.getElementById(
+            "modalTitle"
+        );
+
+
+    const modalDetails =
+        document.getElementById(
+            "modalDetails"
+        );
+
+
+    const modalWhatsApp =
+        document.getElementById(
+            "modalWhatsApp"
+        );
+
+
+    const realtimeStatus =
+        document.getElementById(
+            "realtimeStatus"
+        );
+
+
+    let todosOsLeads = [];
+
+    let contatoSelecionado = null;
+
+
+    /* =========================
+       LOGIN
+    ========================= */
+
+    const {
+        data: {
+            session
+        }
+    } =
+        await supabase.auth.getSession();
+
+
+    if (!session) {
+
+        window.location.href =
+            "index.html";
+
+        throw new Error(
+            "Usuário não autenticado."
+        );
+
+    }
+
+
+    /* =========================
+       LOGOUT
+    ========================= */
+
+    logoutButton.addEventListener(
+        "click",
+        async () => {
+
+            await supabase.auth.signOut();
+
+            window.location.href =
+                "index.html";
+
+        }
+    );
+
+
+    /* =========================
+       MENU MOBILE
+    ========================= */
+
+    menuButton.addEventListener(
+        "click",
+        () => {
+
+            sidebar.classList.toggle(
+                "open"
+            );
+
+        }
+    );
+
+
+    /* =========================
+       BUSCAR LEADS
+    ========================= */
+
+    async function buscarLeads() {
+
+        const {
+            data,
+            error
+        } =
+            await supabase
+                .from("leads")
+                .select("*")
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(
+                "Erro Supabase:",
+                error
+            );
+
+            tableContainer.innerHTML = `
+                <div class="empty-state">
+
+                    <div class="empty-state-icon">
+                        ⚠
+                    </div>
+
+                    <strong>
+                        Erro ao carregar contatos
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(error.message)}
+                    </span>
+
+                </div>
+            `;
+
+            return [];
+
+        }
+
+
+        return data || [];
+
+    }
+
+
+    /* =========================
+       NORMALIZAR STATUS
+    ========================= */
+
+    function normalizarStatus(status) {
+
+        const valor =
+            String(status || "Novo")
+                .trim()
+                .toLowerCase();
+
+        if (valor === "novo") {
+            return "novo";
+        }
+
+        if (valor === "em atendimento") {
+            return "em atendimento";
+        }
+
+        if (valor === "concluído" || valor === "concluido") {
+            return "concluído";
+        }
+
+        if (valor === "cancelado") {
+            return "cancelado";
+        }
+
+        return "novo";
+    }
+
+
+    /* =========================
+       NOME DO STATUS
+    ========================= */
+
+    function nomeStatus(status) {
+
+        const nomes = {
+
+            "novo": "Novo",
+
+            "em atendimento": "Em atendimento",
+
+            "concluído": "Concluído",
+
+            "cancelado": "Cancelado"
+
+        };
+
+        return (
+            nomes[normalizarStatus(status)] ||
+            "Novo"
+        );
+    }
+
+
+    /* =========================
+       CLASSE STATUS
+    ========================= */
+
+    function classeStatus(status) {
+
+        const valor =
+            normalizarStatus(status);
+
+        return {
+
+            "novo":
+                "status-novo",
+
+            "em atendimento":
+                "status-atendimento",
+
+            "concluído":
+                "status-concluido",
+
+            "cancelado":
+                "status-cancelado"
+
+        }[valor] || "status-novo";
+    }
+
+
+    /* =========================
+       ESCAPAR HTML
+    ========================= */
+
+    function escapeHTML(
+        valor
+    ) {
+
+        return String(
+            valor ?? ""
+        )
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    /* =========================
+       FORMATAR DATA
+    ========================= */
+
+    function formatarData(
+        data
+    ) {
+
+        if (!data) {
+
+            return "—";
+
+        }
+
+
+        const valor =
+            new Date(data);
+
+
+        if (
+            Number.isNaN(
+                valor.getTime()
+            )
+        ) {
+
+            return "—";
+
+        }
+
+
+        return valor.toLocaleString(
+            "pt-BR",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
+
+    }
+
+
+    /* =========================
+       FORMATAR WHATSAPP
+    ========================= */
+
+    function formatarWhatsApp(
+        telefone
+    ) {
+
+        if (!telefone) {
+
+            return "—";
+
+        }
+
+
+        const numeros =
+            String(
+                telefone
+            ).replace(
+                /\D/g,
+                ""
+            );
+
+
+        if (
+            numeros.length === 13 &&
+            numeros.startsWith("55")
+        ) {
+
+            return `+${numeros.slice(0, 2)}
+                (${numeros.slice(2, 4)})
+                ${numeros.slice(4, 9)}-${numeros.slice(9)}`
+
+                .replace(
+                    /\s+/g,
+                    " "
+                );
+
+        }
+
+
+        if (
+            numeros.length === 11
+        ) {
+
+            return `(${numeros.slice(0, 2)})
+                ${numeros.slice(2, 7)}-${numeros.slice(7)}`
+
+                .replace(
+                    /\s+/g,
+                    " "
+                );
+
+        }
+
+
+        return telefone;
+
+    }
+
+
+    /* =========================
+       LINK WHATSAPP
+    ========================= */
+
+    function gerarWhatsApp(
+        telefone
+    ) {
+
+        if (!telefone) {
+
+            return null;
+
+        }
+
+
+        let numero =
+            String(
+                telefone
+            ).replace(
+                /\D/g,
+                ""
+            );
+
+
+        if (
+            numero.length === 11
+        ) {
+
+            numero =
+                "55" +
+                numero;
+
+        }
+
+
+        if (
+            numero.length < 10
+        ) {
+
+            return null;
+
+        }
+
+
+        return (
+            "https://wa.me/" +
+            numero
+        );
+
+    }
+
+
+    /* =========================
+       INICIAIS
+    ========================= */
+
+    function iniciais(
+        nome
+    ) {
+
+        const partes =
+            String(
+                nome || "?"
+            )
+                .trim()
+                .split(
+                    /\s+/
+                );
+
+
+        if (
+            partes.length === 1
+        ) {
+
+            return partes[0]
+                .slice(
+                    0,
+                    2
+                )
+                .toUpperCase();
+
+        }
+
+
+        return (
+            partes[0][0] +
+            partes[
+                partes.length - 1
+            ][0]
+        ).toUpperCase();
+
+    }
+
+
+    /* =========================
+       FILTRAR CONTATOS
+    ========================= */
+
+    function filtrarContatos() {
+
+        const busca =
+            searchInput.value
+                .trim()
+                .toLowerCase();
+
+
+        const status =
+            statusFilter.value;
+
+
+        const servicoSelecionado =
+            serviceFilter.value;
+
+
+        const periodo =
+            periodFilter.value;
+
+
+        const agora =
+            new Date();
+
+
+        return todosOsLeads.filter(
+            lead => {
+
+                /* =========================
+                BUSCA
+                ========================= */
+
+                const nome =
+                    String(
+                        lead.nome || ""
+                    ).toLowerCase();
+
+
+                const telefone =
+                    String(
+                        lead.whatsapp ||
+                        lead.telefone ||
+                        ""
+                    ).toLowerCase();
+
+
+                const servico =
+                    String(
+                        lead.servico || ""
+                    ).toLowerCase();
+
+
+                const correspondeBusca =
+                    !busca ||
+                    nome.includes(busca) ||
+                    telefone.includes(busca) ||
+                    servico.includes(busca);
+
+
+                /* =========================
+                STATUS
+                ========================= */
+
+                const correspondeStatus =
+                    status === "all" ||
+                    normalizarStatus(
+                        lead.status
+                    ) === status;
+
+
+                /* =========================
+                SERVIÇO
+                ========================= */
+
+                const correspondeServico =
+                    servicoSelecionado === "all" ||
+                    servico ===
+                        servicoSelecionado
+                            .toLowerCase();
+
+
+                /* =========================
+                PERÍODO
+                ========================= */
+
+                let correspondePeriodo = true;
+
+
+                if (
+                    periodo !== "all" &&
+                    lead.created_at
+                ) {
+
+                    const dataContato =
+                        new Date(
+                            lead.created_at
+                        );
+
+
+                    if (
+                        !Number.isNaN(
+                            dataContato.getTime()
+                        )
+                    ) {
+
+                        const inicio =
+                            new Date(
+                                agora
+                            );
+
+
+                        if (
+                            periodo === "today"
+                        ) {
+
+                            inicio.setHours(
+                                0,
+                                0,
+                                0,
+                                0
+                            );
+
+                        }
+
+
+                        if (
+                            periodo === "7"
+                        ) {
+
+                            inicio.setDate(
+                                agora.getDate() - 7
+                            );
+
+                        }
+
+
+                        if (
+                            periodo === "30"
+                        ) {
+
+                            inicio.setDate(
+                                agora.getDate() - 30
+                            );
+
+                        }
+
+
+                        correspondePeriodo =
+                            dataContato >= inicio;
+
+                    }
+
+                }
+
+
+                return (
+                    correspondeBusca &&
+                    correspondeStatus &&
+                    correspondeServico &&
+                    correspondePeriodo
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       RENDERIZAR
+    ========================= */
+
+    function renderizarContatos() {
+
+        const contatos =
+            filtrarContatos();
+
+
+        contactsCount.textContent =
+            contatos.length;
+
+
+        if (
+            contatos.length === 0
+        ) {
+
+            tableContainer.innerHTML = `
+
+                <div class="empty-state">
+
+                    <div class="empty-state-icon">
+                        ◎
+                    </div>
+
+                    <strong>
+                        Nenhum contato encontrado
+                    </strong>
+
+                    <span>
+                        Tente alterar a busca ou o filtro.
+                    </span>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        let html = `
+
+            <table class="contacts-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Contato
+                        </th>
+
+                        <th>
+                            WhatsApp
+                        </th>
+
+                        <th>
+                            Serviço
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Recebido
+                        </th>
+
+                        <th>
+                            Ações
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+        `;
+
+
+        contatos.forEach(
+            lead => {
+
+                const nome =
+                    lead.nome ||
+                    "Sem nome";
+
+
+                const telefone =
+                    lead.whatsapp ||
+                    lead.telefone ||
+                    "";
+
+
+                const whatsapp =
+                    gerarWhatsApp(
+                        telefone
+                    );
+
+
+                const status =
+                    normalizarStatus(
+                        lead.status
+                    );
+
+
+                html += `
+
+                    <tr>
+
+                        <td>
+
+                            <div class="contact-name">
+
+                                <div class="contact-avatar">
+
+                                    ${escapeHTML(
+                                        iniciais(nome)
+                                    )}
+
+                                </div>
+
+                                <div class="contact-info">
+
+                                    <strong>
+                                        ${escapeHTML(nome)}
+                                    </strong>
+
+                                    <span>
+                                        ${escapeHTML(
+                                            lead.email ||
+                                            "Sem e-mail"
+                                        )}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            ${
+                                whatsapp
+                                ?
+                                `
+                                    <a
+                                        class="whatsapp-link"
+                                        href="${whatsapp}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        ${escapeHTML(
+                                            formatarWhatsApp(
+                                                telefone
+                                            )
+                                        )}
+                                    </a>
+                                `
+                                :
+                                "—"
+                            }
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHTML(
+                                lead.servico ||
+                                "Não informado"
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            <select
+                                class="status-select"
+                                data-id="${escapeHTML(
+                                    lead.id
+                                )}"
+
+                            >
+
+                                <option
+                                    value="novo"
+                                    ${status === "novo" ? "selected" : ""}
+                                >
+                                    Novo
+                                </option>
+
+                                <option
+                                    value="em atendimento"
+                                    ${status === "em atendimento" ? "selected" : ""}
+                                >
+                                    Em atendimento
+                                </option>
+
+                                <option
+                                    value="concluído"
+                                    ${status === "concluído" ? "selected" : ""}
+                                >
+                                    Concluído
+                                </option>
+
+                                <option
+                                    value="cancelado"
+                                    ${status === "cancelado" ? "selected" : ""}
+                                >
+                                    Cancelado
+                                </option>
+
+                            </select>
+
+                        </td>
+
+
+                        <td>
+
+                            ${formatarData(
+                                lead.created_at
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="contact-actions">
+
+                                <button
+                                    type="button"
+                                    class="action-button"
+                                    title="Ver detalhes"
+                                    data-action="view"
+                                    data-id="${escapeHTML(
+                                        lead.id
+                                    )}"
+                                >
+                                    👁
+                                </button>
+
+
+                                ${
+                                    whatsapp
+                                    ?
+                                    `
+                                        <a
+                                            href="${whatsapp}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="action-button whatsapp"
+                                            title="Abrir WhatsApp"
+                                        >
+                                            ☎
+                                        </a>
+                                    `
+                                    :
+                                    ""
+                                }
+
+
+                                <button
+                                    type="button"
+                                    class="action-button danger"
+                                    title="Excluir contato"
+                                    data-action="delete"
+                                    data-id="${escapeHTML(
+                                        lead.id
+                                    )}"
+                                >
+                                    🗑
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        );
+
+
+        html += `
+
+                </tbody>
+
+            </table>
+
+        `;
+
+
+        tableContainer.innerHTML =
+            html;
+
+
+        configurarAcoes();
+
+    }
+
+
+    /* =========================
+       AÇÕES
+    ========================= */
+
+    function configurarAcoes() {
+
+        document
+            .querySelectorAll(
+                "[data-action='view']"
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            const id =
+                                button.dataset.id;
+
+                            abrirDetalhes(
+                                id
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+        document
+            .querySelectorAll(
+                "[data-action='delete']"
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        async () => {
+
+                            const id =
+                                button.dataset.id;
+
+                            await excluirContato(
+                                id
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+        document
+            .querySelectorAll(
+                ".status-select"
+            )
+            .forEach(
+                select => {
+
+                    select.addEventListener(
+                        "change",
+                        async () => {
+
+                            await alterarStatus(
+                                select.dataset.id,
+                                select.value
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* =========================
+       ALTERAR STATUS
+    ========================= */
+
+    async function alterarStatus(
+        id,
+        status
+    ) {
+
+        const {
+            error
+        } =
+            await supabase
+                .from("leads")
+                .update({
+                    status: status
+                })
+                .eq(
+                    "id",
+                    id
+                );
+
+
+        if (error) {
+
+            console.error(
+                error
+            );
+
+            alert(
+                "Não foi possível alterar o status."
+            );
+
+            return;
+
+        }
+
+
+        const lead =
+            todosOsLeads.find(
+                item =>
+                    String(item.id) ===
+                    String(id)
+            );
+
+
+        if (lead) {
+
+            lead.status =
+                status;
+
+        }
+
+
+        renderizarContatos();
+
+    }
+
+
+    /* =========================
+       DETALHES
+    ========================= */
+
+    function abrirDetalhes(
+        id
+    ) {
+
+        const lead =
+            todosOsLeads.find(
+                item =>
+                    String(item.id) ===
+                    String(id)
+            );
+
+
+        if (!lead) {
+
+            return;
+
+        }
+
+
+        contatoSelecionado =
+            lead;
+
+
+        const nome =
+            lead.nome ||
+            "Sem nome";
+
+
+        modalTitle.textContent =
+            nome;
+
+
+        modalDetails.innerHTML = `
+
+            <div class="detail-item">
+
+                <span>
+                    Nome
+                </span>
+
+                <strong>
+                    ${escapeHTML(nome)}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Status
+                </span>
+
+                <strong>
+                    ${escapeHTML(
+                        nomeStatus(
+                            lead.status
+                        )
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    WhatsApp
+                </span>
+
+                <strong>
+                    ${escapeHTML(
+                        formatarWhatsApp(
+                            lead.whatsapp ||
+                            lead.telefone
+                        )
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Serviço
+                </span>
+
+                <strong>
+                    ${escapeHTML(
+                        lead.servico ||
+                        "Não informado"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item full">
+
+                <span>
+                    E-mail
+                </span>
+
+                <strong>
+                    ${escapeHTML(
+                        lead.email ||
+                        "Não informado"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Origem
+                </span>
+
+                <strong>
+                    ${escapeHTML(
+                        lead.origem ||
+                        "Não informado"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Recebido em
+                </span>
+
+                <strong>
+                    ${escapeHTML(
+                        formatarData(
+                            lead.created_at
+                        )
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item full">
+
+                <span>
+                    Observação
+                </span>
+
+                <strong>
+                    ${escapeHTML(
+                        lead.observacao ||
+                        lead.observacao_cliente ||
+                        "Nenhuma observação."
+                    )}
+                </strong>
+
+            </div>
+
+        `;
+
+
+        modalOverlay.classList.add(
+            "open"
+        );
+
+    }
+
+
+    /* =========================
+       FECHAR MODAL
+    ========================= */
+
+    function fecharModal() {
+
+        modalOverlay.classList.remove(
+            "open"
+        );
+
+        contatoSelecionado =
+            null;
+
+    }
+
+
+    modalClose.addEventListener(
+        "click",
+        fecharModal
+    );
+
+
+    modalCancel.addEventListener(
+        "click",
+        fecharModal
+    );
+
+
+    modalOverlay.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                modalOverlay
+            ) {
+
+                fecharModal();
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                fecharModal();
+
+            }
+
+        }
+    );
+
+
+    /* =========================
+       WHATSAPP DO MODAL
+    ========================= */
+
+    modalWhatsApp.addEventListener(
+        "click",
+        () => {
+
+            if (
+                !contatoSelecionado
+            ) {
+
+                return;
+
+            }
+
+
+            const telefone =
+                contatoSelecionado.whatsapp ||
+                contatoSelecionado.telefone;
+
+
+            const link =
+                gerarWhatsApp(
+                    telefone
+                );
+
+
+            if (!link) {
+
+                alert(
+                    "Este contato não possui um WhatsApp válido."
+                );
+
+                return;
+
+            }
+
+
+            window.open(
+                link,
+                "_blank",
+                "noopener,noreferrer"
+            );
+
+        }
+    );
+
+
+    /* =========================
+       EXCLUIR
+    ========================= */
+
+    async function excluirContato(
+        id
+    ) {
+
+        const lead =
+            todosOsLeads.find(
+                item =>
+                    String(item.id) ===
+                    String(id)
+            );
+
+
+        if (!lead) {
+
+            return;
+
+        }
+
+
+        const nome =
+            lead.nome ||
+            "este contato";
+
+
+        const confirmar =
+            confirm(
+                `Deseja realmente excluir o contato "${nome}"?`
+            );
+
+
+        if (!confirmar) {
+
+            return;
+
+        }
+
+
+        const {
+            error
+        } =
+            await supabase
+                .from("leads")
+                .delete()
+                .eq(
+                    "id",
+                    id
+                );
+
+
+        if (error) {
+
+            console.error(
+                error
+            );
+
+            alert(
+                "Não foi possível excluir o contato."
+            );
+
+            return;
+
+        }
+
+
+        todosOsLeads =
+            todosOsLeads.filter(
+                item =>
+                    String(item.id) !==
+                    String(id)
+            );
+
+
+        renderizarContatos();
+
+    }
+
+
+    /* =========================
+       ATUALIZAR
+    ========================= */
+
+    async function atualizarContatos() {
+
+        refreshButton.disabled =
+            true;
+
+
+        refreshButton.textContent =
+            "Atualizando...";
+
+
+        try {
+
+            todosOsLeads =
+                await buscarLeads();
+
+
+            renderizarContatos();
+
+        }
+
+        finally {
+
+            refreshButton.disabled =
+                false;
+
+
+            refreshButton.textContent =
+                "Atualizar";
+
+        }
+
+    }
+
+
+    /* =========================
+       PESQUISA
+    ========================= */
+
+    searchInput.addEventListener(
+        "input",
+        () => {
+
+            renderizarContatos();
+
+        }
+    );
+
+
+    statusFilter.addEventListener(
+        "change",
+        () => {
+
+            renderizarContatos();
+
+        }
+    );
+
+    serviceFilter.addEventListener(
+        "change",
+        () => {
+
+            renderizarContatos();
+
+        }
+    );
+
+
+    periodFilter.addEventListener(
+        "change",
+        () => {
+
+            renderizarContatos();
+
+        }
+    );
+
+
+    clearFiltersButton.addEventListener(
+        "click",
+        () => {
+
+            searchInput.value = "";
+
+            statusFilter.value = "all";
+
+            serviceFilter.value = "all";
+
+            periodFilter.value = "all";
+
+            renderizarContatos();
+
+        }
+    );
+
+
+    refreshButton.addEventListener(
+        "click",
+        async () => {
+
+            await atualizarContatos();
+
+        }
+    );
+
+
+    /* =========================
+       REALTIME
+    ========================= */
+
+    supabase
+        .channel(
+            "contatos-realtime"
+        )
+        .on(
+            "postgres_changes",
+            {
+                event: "*",
+                schema: "public",
+                table: "leads"
+            },
+            async () => {
+
+                console.log(
+                    "Alteração detectada nos contatos."
+                );
+
+
+                todosOsLeads =
+                    await buscarLeads();
+
+
+                renderizarContatos();
+
+            }
+        )
+        .subscribe(
+            status => {
+
+                if (
+                    !realtimeStatus
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    status ===
+                    "SUBSCRIBED"
+                ) {
+
+                    realtimeStatus.innerHTML = `
+
+                        <span
+                            style="
+                                width:7px;
+                                height:7px;
+                                border-radius:50%;
+                                background:#7fbf8f;
+                                box-shadow:0 0 8px rgba(127,191,143,.7);
+                            "
+                        ></span>
+
+                        Atualização em tempo real ativa
+
+                    `;
+
+                }
+
+                else {
+
+                    realtimeStatus.innerHTML = `
+
+                        <span
+                            style="
+                                width:7px;
+                                height:7px;
+                                border-radius:50%;
+                                background:#c98b8b;
+                            "
+                        ></span>
+
+                        Atualização em tempo real indisponível
+
+                    `;
+
+                }
+
+            }
+        );
+
+
+    /* =========================
+       INICIALIZAÇÃO
+    ========================= */
+
+    await atualizarContatos();
+
+</script>
+
+</body>
+
+</html>
