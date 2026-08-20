@@ -360,6 +360,17 @@
                             <option value="Cancelado">Cancelado</option>
                         </select>
 
+                        <select
+                            id="leadPeriodFilter"
+                            class="lead-status-filter"
+                        >
+                            <option value="">Hoje</option>
+                            <option value="ontem">Ontem</option>
+                            <option value="7dias">Últimos 7 dias</option>
+                            <option value="30dias">Últimos 30 dias</option>
+                            <option value="todos">Todos os períodos</option>
+                        </select>
+
                     </div>
 
                     <!-- =========================
@@ -542,6 +553,11 @@
                 "leadStatusFilter"
             );
 
+        const leadPeriodFilter =
+            document.getElementById(
+                "leadPeriodFilter"
+            );
+
 
         /* =========================
            VERIFICAR LOGIN
@@ -681,6 +697,60 @@
                 agora.getDate() + 1
             );
 
+            const periodo =
+                leadPeriodFilter
+                    ? leadPeriodFilter.value
+                    : "";
+
+            let inicioPeriodo = null;
+            let fimPeriodo = null;
+
+            if (periodo === "") {
+
+                inicioPeriodo =
+                    inicioHoje;
+
+                fimPeriodo =
+                    inicioAmanha;
+
+            }
+            else if (periodo === "ontem") {
+
+                inicioPeriodo = new Date(
+                    agora.getFullYear(),
+                    agora.getMonth(),
+                    agora.getDate() - 1
+                );
+
+                fimPeriodo =
+                    inicioHoje;
+
+            }
+            else if (periodo === "7dias") {
+
+                inicioPeriodo = new Date(
+                    agora.getFullYear(),
+                    agora.getMonth(),
+                    agora.getDate() - 6
+                );
+
+                fimPeriodo =
+                    inicioAmanha;
+
+            }
+            else if (periodo === "30dias") {
+
+                inicioPeriodo = new Date(
+                    agora.getFullYear(),
+                    agora.getMonth(),
+                    agora.getDate() - 29
+                );
+
+                fimPeriodo =
+                    inicioAmanha;
+
+            }
+
             const termoPesquisa =
                 leadSearch
                     ? leadSearch.value.trim()
@@ -706,18 +776,35 @@
                     );
 
 
-            if (!termoPesquisa && !statusFiltro) {
+            if (!termoPesquisa && !statusFiltro && periodo !== "todos") {
 
                 consulta = consulta
                     .gte(
                         "created_at",
-                        inicioHoje.toISOString()
+                        inicioPeriodo.toISOString()
                     )
                     .lt(
                         "created_at",
-                        inicioAmanha.toISOString()
+                        fimPeriodo.toISOString()
                     )
-                    .limit(3);
+                    .limit(
+                        periodo === ""
+                            ? 3
+                            : 100
+                    );
+
+            }
+            else if (periodo !== "todos") {
+
+                consulta = consulta
+                    .gte(
+                        "created_at",
+                        inicioPeriodo.toISOString()
+                    )
+                    .lt(
+                        "created_at",
+                        fimPeriodo.toISOString()
+                    );
 
             }
             else {
@@ -1034,6 +1121,13 @@
         );
 
         leadStatusFilter.addEventListener(
+            "change",
+            () => {
+                carregarLeads();
+            }
+        );
+
+        leadPeriodFilter.addEventListener(
             "change",
             () => {
                 carregarLeads();
