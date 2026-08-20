@@ -1037,6 +1037,21 @@
                     lead.status ||
                     "Novo";
 
+                const statusNormalizado =
+                    normalizarStatus(status);
+
+                let statusClasse = "status-novo";
+
+                if (statusNormalizado === "em atendimento") {
+                    statusClasse = "status-atendimento";
+                }
+                else if (statusNormalizado === "concluído") {
+                    statusClasse = "status-concluido";
+                }
+                else if (statusNormalizado === "cancelado") {
+                    statusClasse = "status-cancelado";
+                }
+
 
                 item.innerHTML = `
 
@@ -1083,17 +1098,7 @@
                     </div>
 
 
-                    <span
-                        style="
-                            flex-shrink:0;
-                            padding:7px 12px;
-                            border-radius:20px;
-                            border:1px solid #333;
-                            color:var(--gold);
-                            font-size:12px;
-                            font-weight:700;
-                        "
-                    >
+                    <span class="status-badge ${statusClasse}">
                         ${status}
                     </span>
 

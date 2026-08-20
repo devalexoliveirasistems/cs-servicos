@@ -1221,3 +1221,39 @@ body {
         transform: translateY(0);
     }
 }
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    border: 1px solid transparent;
+}
+
+.status-novo {
+    color: #d4af37;
+    background: rgba(212, 175, 55, 0.10);
+    border-color: rgba(212, 175, 55, 0.20);
+}
+
+.status-atendimento {
+    color: #7fa9d9;
+    background: rgba(127, 169, 217, 0.10);
+    border-color: rgba(127, 169, 217, 0.20);
+}
+
+.status-concluido {
+    color: #7fbf8f;
+    background: rgba(127, 191, 143, 0.10);
+    border-color: rgba(127, 191, 143, 0.20);
+}
+
+.status-cancelado {
+    color: #c98b8b;
+    background: rgba(201, 139, 139, 0.10);
+    border-color: rgba(201, 139, 139, 0.20);
+}
