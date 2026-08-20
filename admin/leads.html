@@ -525,6 +525,10 @@
             document.getElementById(
                 "refreshButton"
             );
+        const leadSearch =
+            document.getElementById(
+                "leadSearch"
+            );
 
 
         /* =========================
@@ -665,29 +669,53 @@
                 agora.getDate() + 1
             );
 
+            const termoPesquisa =
+                leadSearch
+                    ? leadSearch.value.trim()
+                    : "";
+
+
+            let consulta =
+                supabase
+                    .from("leads")
+                    .select(
+                        "id,nome,whatsapp,servico,origem,observacao,status,created_at"
+                    )
+                    .order(
+                        "created_at",
+                        {
+                            ascending: false
+                        }
+                    );
+
+
+            if (!termoPesquisa) {
+
+                consulta = consulta
+                    .gte(
+                        "created_at",
+                        inicioHoje.toISOString()
+                    )
+                    .lt(
+                        "created_at",
+                        inicioAmanha.toISOString()
+                    )
+                    .limit(3);
+
+            }
+            else {
+
+                consulta = consulta.or(
+                    `nome.ilike.%${termoPesquisa}%,whatsapp.ilike.%${termoPesquisa}%,servico.ilike.%${termoPesquisa}%`
+                );
+
+            }
+
+
             const {
                 data,
                 error
-            } = await supabase
-                .from("leads")
-                .select(
-                    "id,nome,whatsapp,servico,origem,observacao,status,created_at"
-                )
-                .gte(
-                    "created_at",
-                    inicioHoje.toISOString()
-                )
-                .lt(
-                    "created_at",
-                    inicioAmanha.toISOString()
-                )
-                .order(
-                    "created_at",
-                    {
-                        ascending: false
-                    }
-                )
-                .limit(3);
+            } = await consulta;
 
 
             /* =========================
@@ -939,6 +967,13 @@
         refreshButton.addEventListener(
             "click",
             carregarLeads
+        );
+
+        leadSearch.addEventListener(
+            "input",
+            () => {
+                carregarLeads();
+            }
         );
 
         /* =========================
