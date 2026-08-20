@@ -768,6 +768,33 @@
                 emptyState.style.display =
                     "block";
 
+                if (termoPesquisa) {
+
+                    emptyState.querySelector(
+                        "h3"
+                    ).textContent =
+                        "Nenhum lead encontrado";
+
+                    emptyState.querySelector(
+                        "p"
+                    ).textContent =
+                        "Não encontramos nenhum lead para sua pesquisa.";
+
+                }
+                else {
+
+                    emptyState.querySelector(
+                        "h3"
+                    ).textContent =
+                        "Nenhum lead encontrado";
+
+                    emptyState.querySelector(
+                        "p"
+                    ).textContent =
+                        "Quando um cliente enviar um contato pelo site, ele aparecerá aqui.";
+
+                }
+
                 return;
 
             }
