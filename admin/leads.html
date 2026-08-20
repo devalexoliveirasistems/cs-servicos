@@ -349,12 +349,19 @@
                             autocomplete="off"
                         >
 
+                        <select
+                            id="leadStatusFilter"
+                            class="lead-status-filter"
+                        >
+                            <option value="">Todos os status</option>
+                            <option value="Novo">Novo</option>
+                            <option value="Em atendimento">Em atendimento</option>
+                            <option value="Concluído">Concluído</option>
+                            <option value="Cancelado">Cancelado</option>
+                        </select>
+
                     </div>
 
-
-                    <!-- =========================
-                         CARREGANDO
-                    ========================= -->
                     <!-- =========================
                          CARREGANDO
                     ========================= -->
@@ -530,6 +537,11 @@
                 "leadSearch"
             );
 
+        const leadStatusFilter =
+            document.getElementById(
+                "leadStatusFilter"
+            );
+
 
         /* =========================
            VERIFICAR LOGIN
@@ -674,6 +686,11 @@
                     ? leadSearch.value.trim()
                     : "";
 
+            const statusFiltro =
+                leadStatusFilter
+                    ? leadStatusFilter.value
+                    : "";
+
 
             let consulta =
                 supabase
@@ -689,7 +706,7 @@
                     );
 
 
-            if (!termoPesquisa) {
+            if (!termoPesquisa && !statusFiltro) {
 
                 consulta = consulta
                     .gte(
@@ -705,9 +722,22 @@
             }
             else {
 
-                consulta = consulta.or(
-                    `nome.ilike.%${termoPesquisa}%,whatsapp.ilike.%${termoPesquisa}%,servico.ilike.%${termoPesquisa}%`
-                );
+                if (termoPesquisa) {
+
+                    consulta = consulta.or(
+                        `nome.ilike.%${termoPesquisa}%,whatsapp.ilike.%${termoPesquisa}%,servico.ilike.%${termoPesquisa}%`
+                    );
+
+                }
+
+                if (statusFiltro) {
+
+                    consulta = consulta.eq(
+                        "status",
+                        statusFiltro
+                    );
+
+                }
 
             }
 
@@ -998,6 +1028,13 @@
 
         leadSearch.addEventListener(
             "input",
+            () => {
+                carregarLeads();
+            }
+        );
+
+        leadStatusFilter.addEventListener(
+            "change",
             () => {
                 carregarLeads();
             }
