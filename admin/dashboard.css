@@ -1613,3 +1613,52 @@ body {
         box-shadow: 0 0 0 0 rgba(127, 191, 143, 0);
     }
 }
+
+/* =========================
+   PESQUISA DE LEADS
+========================= */
+
+.lead-search {
+    margin: 16px 18px 20px;
+}
+
+.lead-search input {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 13px 16px;
+
+    background: #151515;
+
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+
+    color: var(--text);
+
+    font-size: 14px;
+    font-weight: 500;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.lead-search input::placeholder {
+    color: #666;
+}
+
+.lead-search input:hover {
+    border-color: rgba(212, 175, 55, 0.35);
+}
+
+.lead-search input:focus {
+    border-color: var(--gold);
+
+    background: #181818;
+
+    box-shadow:
+        0 0 0 3px rgba(212, 175, 55, 0.08);
+}
