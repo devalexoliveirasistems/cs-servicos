@@ -633,6 +633,20 @@
                 "none";
 
 
+            const agora = new Date();
+
+            const inicioHoje = new Date(
+                agora.getFullYear(),
+                agora.getMonth(),
+                agora.getDate()
+            );
+
+            const inicioAmanha = new Date(
+                agora.getFullYear(),
+                agora.getMonth(),
+                agora.getDate() + 1
+            );
+
             const {
                 data,
                 error
@@ -641,12 +655,21 @@
                 .select(
                     "id,nome,whatsapp,servico,origem,observacao,status,created_at"
                 )
+                .gte(
+                    "created_at",
+                    inicioHoje.toISOString()
+                )
+                .lt(
+                    "created_at",
+                    inicioAmanha.toISOString()
+                )
                 .order(
                     "created_at",
                     {
                         ascending: false
                     }
-                );
+                )
+                .limit(3);
 
 
             /* =========================
