@@ -424,15 +424,110 @@ body {
    WELCOME
 ========================= */
 
+/* =========================================================
+   BOAS-VINDAS
+========================================================= */
+
 .welcome {
+    position: relative;
+
     margin-bottom: 30px;
+    padding: 26px 30px;
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.035),
+            rgba(255, 255, 255, 0.012)
+        );
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.12);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+
+    animation: welcomeIn 0.6s ease both;
 }
 
 
-.eyebrow {
-    display: inline-block;
+/* Linha dourada decorativa */
 
-    margin-bottom: 8px;
+.welcome::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 3px;
+
+    background: var(--gold);
+
+    box-shadow:
+        0 0 18px rgba(212, 175, 55, 0.35);
+}
+
+
+/* Brilho sutil no fundo */
+
+.welcome::after {
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    right: -100px;
+    top: -120px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(212, 175, 55, 0.08),
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+
+
+/* Hover */
+
+.welcome:hover {
+    transform: translateY(-2px);
+
+    border-color:
+        rgba(212, 175, 55, 0.18);
+
+    box-shadow:
+        0 14px 40px rgba(0, 0, 0, 0.16);
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.eyebrow {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 10px;
 
     color: var(--gold);
 
@@ -440,24 +535,104 @@ body {
     font-weight: 700;
 
     letter-spacing: 0.18em;
+
+    text-transform: uppercase;
 }
 
 
-.welcome h2 {
-    font-size: 28px;
+/* Pequeno ponto dourado */
 
+.eyebrow::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--gold);
+
+    box-shadow:
+        0 0 10px rgba(212, 175, 55, 0.55);
+
+    animation: pulseGold 2s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.welcome h2 {
+    position: relative;
+
+    font-size: 28px;
     line-height: 1.25;
 
     margin-bottom: 8px;
+
+    letter-spacing: -0.02em;
+
+    transition:
+        color 0.3s ease;
 }
 
 
+.welcome:hover h2 {
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+========================================================= */
+
 .welcome p {
+    position: relative;
+
+    max-width: 700px;
+
     color: var(--text-muted);
 
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 1.7;
 
-    line-height: 1.6;
+    margin: 0;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+========================================================= */
+
+@keyframes welcomeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes pulseGold {
+
+    0%,
+    100% {
+        opacity: 0.55;
+        transform: scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+
 }
 
 
@@ -469,9 +644,9 @@ body {
     display: grid;
 
     grid-template-columns:
-        repeat(4, minmax(0, 1fr));
+        repeat(3, minmax(0, 1fr));
 
-    gap: 16px;
+    gap: 18px;
 
     margin-bottom: 28px;
 }
@@ -481,10 +656,9 @@ body {
     min-height: 145px;
 
     display: flex;
-
     align-items: center;
 
-    gap: 16px;
+    gap: 18px;
 
     padding: 22px;
 
@@ -495,52 +669,72 @@ body {
     border-radius: var(--radius);
 
     transition:
-        transform 0.2s ease,
-        border-color 0.2s ease,
-        background 0.2s ease;
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 
 .stat-card:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 
     background: var(--card-hover);
 
-    border-color: var(--border);
+    border-color:
+        rgba(212, 175, 55, 0.22);
+
+    box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.16);
 }
 
 
 .stat-icon {
-    width: 46px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
 
     flex-shrink: 0;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
     border-radius: 12px;
 
-    background: rgba(212, 175, 55, 0.10);
+    background:
+        rgba(212, 175, 55, 0.10);
 
-    border: 1px solid rgba(212, 175, 55, 0.16);
+    border:
+        1px solid rgba(212, 175, 55, 0.16);
 
     color: var(--gold);
 
     font-size: 20px;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.stat-card:hover .stat-icon {
+    transform: scale(1.06);
+
+    box-shadow:
+        0 0 18px rgba(212, 175, 55, 0.10);
 }
 
 
 .stat-info span {
     display: block;
 
-    margin-bottom: 6px;
+    margin-bottom: 7px;
 
     color: #858585;
 
     font-size: 12px;
+
+    font-weight: 500;
 }
 
 
@@ -552,8 +746,9 @@ body {
     line-height: 1;
 
     font-weight: 700;
-}
 
+    letter-spacing: -0.02em;
+}
 
 /* =========================
    PAINEL
@@ -684,7 +879,7 @@ body {
    TABLET
 ========================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 900px) {
 
     .stats-grid {
         grid-template-columns:
