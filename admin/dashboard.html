@@ -236,13 +236,13 @@
 
             <div class="user-area">
 
-                <div class="user-avatar">
+                <div class="user-avatar" id="topAdminAvatar">
                     A
                 </div>
 
                 <div class="user-info">
 
-                    <strong>
+                    <strong id="userName">
                         Administrador
                     </strong>
 
@@ -656,6 +656,46 @@
 
     }
 
+    const { data: configuracao } =
+        await supabase
+            .from("configuracoes")
+            .select("nome_admin")
+            .limit(1)
+            .maybeSingle();
+
+    console.log("CONFIGURAÇÃO:", configuracao);
+
+    const nomeUsuario =
+        configuracao?.nome_admin ||
+        "Administrador";
+
+    document.getElementById("userName").textContent = nomeUsuario;
+
+    const avatar = document.getElementById("topAdminAvatar");
+
+        if (avatar) {
+            const partesNome = nomeUsuario
+                .trim()
+                .split(/\s+/);
+
+            const iniciais =
+                partesNome.length > 1
+                    ? partesNome[0].charAt(0) +
+                    partesNome[partesNome.length - 1].charAt(0)
+                    : partesNome[0].charAt(0);
+
+            avatar.textContent =
+                iniciais.toUpperCase();
+        }
+    console.log("USUÁRIO SUPABASE:", session.user);
+    console.log(
+        "METADADOS:",
+        JSON.stringify(session.user.user_metadata, null, 2)
+    );
+
+    document.getElementById("userName").textContent =
+    nomeUsuario;
+
 
     /* =========================
        LOGOUT
@@ -1035,6 +1075,11 @@
                 const whatsapp =
                     lead.whatsapp ||
                     "WhatsApp não informado";
+
+                const origem =
+                    lead.origem ||
+                    "Origem não informada";
+
                 const whatsappFormatado =
                     whatsapp !== "WhatsApp não informado"
                         ? String(whatsapp)
@@ -1102,6 +1147,17 @@
                             "
                         >
                             WhatsApp: ${whatsappFormatado}
+                        </span>
+
+                        <span
+                            style="
+                                display:block;
+                                color:#777;
+                                font-size:12px;
+                                margin-bottom:4px;
+                            "
+                        >
+                            Origem: ${origem}
                         </span>
 
                         <small

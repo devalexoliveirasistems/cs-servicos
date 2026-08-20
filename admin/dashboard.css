@@ -1257,3 +1257,48 @@ body {
     background: rgba(201, 139, 139, 0.10);
     border-color: rgba(201, 139, 139, 0.20);
 }
+
+/* =========================
+   STATUS DOS LEADS
+========================= */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    border: 1px solid transparent;
+
+    white-space: nowrap;
+}
+
+.status-novo {
+    color: #d4af37;
+    background: rgba(212, 175, 55, 0.10);
+    border-color: rgba(212, 175, 55, 0.25);
+}
+
+.status-atendimento {
+    color: #6ea8fe;
+    background: rgba(110, 168, 254, 0.10);
+    border-color: rgba(110, 168, 254, 0.25);
+}
+
+.status-concluido {
+    color: #7fbf8f;
+    background: rgba(127, 191, 143, 0.10);
+    border-color: rgba(127, 191, 143, 0.25);
+}
+
+.status-cancelado {
+    color: #d98b8b;
+    background: rgba(217, 139, 139, 0.10);
+    border-color: rgba(217, 139, 139, 0.25);
+}

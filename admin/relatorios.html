@@ -796,7 +796,7 @@
 
                 <div class="user-info">
 
-                    <strong>
+                    <strong id="userName">
                         Administrador
                     </strong>
 
@@ -1657,6 +1657,46 @@
             SUPABASE_KEY
         );
 
+    const {
+        data: configuracao
+    } = await supabase
+        .from("configuracoes")
+        .select("nome_admin")
+        .limit(1)
+        .maybeSingle();
+
+    const nomeUsuario =
+        configuracao?.nome_admin ||
+        "Administrador";
+
+    const userName =
+        document.getElementById("userName");
+
+    if (userName) {
+        userName.textContent =
+            nomeUsuario;
+    }
+
+    const avatar =
+        document.getElementById("topAdminAvatar");
+
+    if (avatar) {
+        const partesNome =
+            nomeUsuario
+                .trim()
+                .split(/\s+/);
+
+        const iniciais =
+            partesNome.length > 1
+                ? partesNome[0].charAt(0) +
+                partesNome[
+                    partesNome.length - 1
+                ].charAt(0)
+                : partesNome[0].charAt(0);
+
+        avatar.textContent =
+            iniciais.toUpperCase();
+    }
 
     /* =========================
        ELEMENTOS

@@ -787,7 +787,7 @@
 
             <div class="user-area">
 
-                <div class="user-avatar">
+                <div class="user-avatar" id="topAdminAvatar">
                     A
                 </div>
 
@@ -1231,6 +1231,10 @@
             "topAdminName"
         );
 
+    const topAdminAvatar =
+        document.getElementById(
+            "topAdminAvatar"
+        );
 
     const companySummary =
         document.getElementById(
@@ -1579,6 +1583,14 @@
         topAdminName.textContent =
             data.nome_admin ||
             "Administrador";
+
+        if (topAdminAvatar) {
+            topAdminAvatar.textContent =
+                (data.nome_admin || "Administrador")
+                    .trim()
+                    .charAt(0)
+                    .toUpperCase();
+        }
 
 
         companySummary.textContent =
