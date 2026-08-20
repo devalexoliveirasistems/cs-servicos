@@ -1437,17 +1437,17 @@ body {
     align-items: center;
     justify-content: center;
 
-    padding: 6px 11px;
+    padding: 8px 14px;
 
     border-radius: 20px;
 
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 700;
 
     white-space: nowrap;
 
-    background: transparent;
-    border: none;
+    background: rgba(212, 175, 55, 0.06);
+    border: 1px solid rgba(212, 175, 55, 0.35);
 }
 
 /* NOVO */
