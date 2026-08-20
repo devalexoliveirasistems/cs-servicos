@@ -1100,7 +1100,10 @@
                 if (statusNormalizado === "em atendimento") {
                     statusClasse = "status-atendimento";
                 }
-                else if (statusNormalizado === "concluído") {
+                else if (
+                    statusNormalizado === "concluído" ||
+                    statusNormalizado === "concluido"
+                ) {
                     statusClasse = "status-concluido";
                 }
                 else if (statusNormalizado === "cancelado") {
