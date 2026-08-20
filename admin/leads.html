@@ -382,6 +382,15 @@
                             <option value="Indicação">Indicação</option>
                         </select>
 
+                        <select
+                            id="leadServiceFilter"
+                            class="lead-status-filter"
+                        >
+                            <option value="">Todos os serviços</option>
+                            <option value="Crédito consignado">Crédito consignado</option>
+                            <option value="Auxílio-acidente">Auxílio-acidente</option>
+                        </select>
+
                     </div>
 
                     <!-- =========================
@@ -572,6 +581,11 @@
         const leadOriginFilter =
             document.getElementById(
                 "leadOriginFilter"
+            );
+
+        const leadServiceFilter =
+            document.getElementById(
+                "leadServiceFilter"
             );
 
 
@@ -781,6 +795,10 @@
                 leadOriginFilter
                     ? leadOriginFilter.value
                     : "";
+            const servicoFiltro =
+                leadServiceFilter
+                    ? leadServiceFilter.value
+                    : "";
 
 
             let consulta =
@@ -842,15 +860,31 @@
             }
 
 
-            /* =========================
-            FILTRO DE ORIGEM
-            ========================= */
+
+
+/* =========================
+FILTRO DE ORIGEM
+========================= */
 
             if (origemFiltro) {
 
                 consulta = consulta.eq(
                     "origem",
                     origemFiltro
+                );
+
+            }
+
+
+            /* =========================
+            FILTRO DE SERVIÇO
+            ========================= */
+
+            if (servicoFiltro) {
+
+                consulta = consulta.eq(
+                    "servico",
+                    servicoFiltro
                 );
 
             }
@@ -864,6 +898,7 @@
                 !termoPesquisa &&
                 !statusFiltro &&
                 !origemFiltro &&
+                !servicoFiltro &&
                 periodo === ""
             ) {
 
@@ -1178,6 +1213,13 @@
         );
 
         leadOriginFilter.addEventListener(
+            "change",
+            () => {
+                carregarLeads();
+            }
+        );
+
+        leadServiceFilter.addEventListener(
             "change",
             () => {
                 carregarLeads();
