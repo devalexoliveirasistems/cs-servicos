@@ -371,6 +371,17 @@
                             <option value="todos">Todos os períodos</option>
                         </select>
 
+                        <select
+                            id="leadOriginFilter"
+                            class="lead-status-filter"
+                        >
+                            <option value="">Todas as origens</option>
+                            <option value="Site">Site</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="Indicação">Indicação</option>
+                        </select>
+
                     </div>
 
                     <!-- =========================
@@ -556,6 +567,11 @@
         const leadPeriodFilter =
             document.getElementById(
                 "leadPeriodFilter"
+            );
+
+        const leadOriginFilter =
+            document.getElementById(
+                "leadOriginFilter"
             );
 
 
@@ -761,6 +777,11 @@
                     ? leadStatusFilter.value
                     : "";
 
+            const origemFiltro =
+                leadOriginFilter
+                    ? leadOriginFilter.value
+                    : "";
+
 
             let consulta =
                 supabase
@@ -775,26 +796,11 @@
                         }
                     );
 
+            /* =========================
+            FILTRO DE PERÍODO
+            ========================= */
 
-            if (!termoPesquisa && !statusFiltro && periodo !== "todos") {
-
-                consulta = consulta
-                    .gte(
-                        "created_at",
-                        inicioPeriodo.toISOString()
-                    )
-                    .lt(
-                        "created_at",
-                        fimPeriodo.toISOString()
-                    )
-                    .limit(
-                        periodo === ""
-                            ? 3
-                            : 100
-                    );
-
-            }
-            else if (periodo !== "todos") {
+            if (periodo !== "todos") {
 
                 consulta = consulta
                     .gte(
@@ -807,24 +813,61 @@
                     );
 
             }
-            else {
 
-                if (termoPesquisa) {
 
-                    consulta = consulta.or(
-                        `nome.ilike.%${termoPesquisa}%,whatsapp.ilike.%${termoPesquisa}%,servico.ilike.%${termoPesquisa}%`
-                    );
+            /* =========================
+            FILTRO DE PESQUISA
+            ========================= */
 
-                }
+            if (termoPesquisa) {
 
-                if (statusFiltro) {
+                consulta = consulta.or(
+                    `nome.ilike.%${termoPesquisa}%,whatsapp.ilike.%${termoPesquisa}%,servico.ilike.%${termoPesquisa}%`
+                );
 
-                    consulta = consulta.eq(
-                        "status",
-                        statusFiltro
-                    );
+            }
 
-                }
+
+            /* =========================
+            FILTRO DE STATUS
+            ========================= */
+
+            if (statusFiltro) {
+
+                consulta = consulta.eq(
+                    "status",
+                    statusFiltro
+                );
+
+            }
+
+
+            /* =========================
+            FILTRO DE ORIGEM
+            ========================= */
+
+            if (origemFiltro) {
+
+                consulta = consulta.eq(
+                    "origem",
+                    origemFiltro
+                );
+
+            }
+
+
+            /* =========================
+            LIMITE DOS LEADS INICIAIS
+            ========================= */
+
+            if (
+                !termoPesquisa &&
+                !statusFiltro &&
+                !origemFiltro &&
+                periodo === ""
+            ) {
+
+                consulta = consulta.limit(3);
 
             }
 
@@ -1128,6 +1171,13 @@
         );
 
         leadPeriodFilter.addEventListener(
+            "change",
+            () => {
+                carregarLeads();
+            }
+        );
+
+        leadOriginFilter.addEventListener(
             "change",
             () => {
                 carregarLeads();
