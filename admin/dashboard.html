@@ -1032,6 +1032,16 @@
                     lead.servico ||
                     "Serviço não informado";
 
+                const whatsapp =
+                    lead.whatsapp ||
+                    "WhatsApp não informado";
+                const whatsappFormatado =
+                    whatsapp !== "WhatsApp não informado"
+                        ? String(whatsapp)
+                            .replace(/\D/g, "")
+                            .replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3")
+                        : whatsapp;
+
 
                 const status =
                     lead.status ||
@@ -1082,6 +1092,16 @@
                             "
                         >
                             ${servico}
+                        </span>
+                        <span
+                            style="
+                                display:block;
+                                color:#777;
+                                font-size:12px;
+                                margin-bottom:4px;
+                            "
+                        >
+                            WhatsApp: ${whatsappFormatado}
                         </span>
 
                         <small
