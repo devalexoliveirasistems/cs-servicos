@@ -523,14 +523,60 @@
 
                         </div>
 
-                        <select
-                            id="leadServiceFilter"
-                            class="lead-status-filter"
-                        >
-                            <option value="">Todos os serviços</option>
-                            <option value="Crédito consignado">Crédito consignado</option>
-                            <option value="Auxílio-acidente">Auxílio-acidente</option>
-                        </select>
+                        <div class="custom-service-filter">
+
+                            <select
+                                id="leadServiceFilter"
+                                class="lead-status-filter custom-service-native"
+                            >
+                                <option value="">Todos os serviços</option>
+                                <option value="Crédito consignado">Crédito consignado</option>
+                                <option value="Auxílio-acidente">Auxílio-acidente</option>
+                            </select>
+
+                            <button
+                                type="button"
+                                class="custom-service-button"
+                                aria-expanded="false"
+                            >
+                                <span class="custom-service-label">
+                                    Todos os serviços
+                                </span>
+
+                                <span class="custom-service-arrow">
+                                    ▾
+                                </span>
+                            </button>
+
+                            <div class="custom-service-menu">
+
+                                <button
+                                    type="button"
+                                    data-value=""
+                                >
+                                    <span class="service-check">✓</span>
+                                    Todos os serviços
+                                </button>
+
+                                <button
+                                    type="button"
+                                    data-value="Crédito consignado"
+                                >
+                                    <span class="service-check"></span>
+                                    Crédito consignado
+                                </button>
+
+                                <button
+                                    type="button"
+                                    data-value="Auxílio-acidente"
+                                >
+                                    <span class="service-check"></span>
+                                    Auxílio-acidente
+                                </button>
+
+                            </div>
+
+                        </div>
 
                     </div>
 
@@ -1905,6 +1951,160 @@ leadsContainer.addEventListener(
                     );
                 }
             );
+        }
+
+                /* =========================================================
+           DROPDOWN PREMIUM — SERVIÇO
+           ========================================================= */
+
+        const customServiceFilter =
+            document.querySelector(".custom-service-filter");
+
+        const customServiceButton =
+            document.querySelector(".custom-service-button");
+
+        const customServiceLabel =
+            document.querySelector(".custom-service-label");
+
+        const customServiceMenu =
+            document.querySelector(".custom-service-menu");
+
+        const customServiceOptions =
+            document.querySelectorAll(
+                ".custom-service-menu button"
+            );
+
+        if (
+            customServiceFilter &&
+            customServiceButton &&
+            customServiceLabel &&
+            customServiceMenu
+        ) {
+
+            customServiceButton.addEventListener(
+                "click",
+                (event) => {
+
+                    event.stopPropagation();
+
+                    const aberto =
+                        customServiceFilter.classList.toggle(
+                            "open"
+                        );
+
+                    customServiceButton.classList.toggle(
+                        "active",
+                        aberto
+                    );
+
+                    customServiceButton.setAttribute(
+                        "aria-expanded",
+                        aberto ? "true" : "false"
+                    );
+
+                }
+            );
+
+            customServiceOptions.forEach(
+                (option) => {
+
+                    option.addEventListener(
+                        "click",
+                        (event) => {
+
+                            event.stopPropagation();
+
+                            const valor =
+                                option.dataset.value;
+
+                            const texto =
+                                option.textContent.trim();
+
+                            if (leadServiceFilter) {
+
+                                leadServiceFilter.value =
+                                    valor;
+
+                                leadServiceFilter.dispatchEvent(
+                                    new Event("change")
+                                );
+
+                            }
+
+                            customServiceLabel.textContent =
+                                texto;
+
+                            customServiceOptions.forEach(
+                                (item) => {
+
+                                    item.classList.remove(
+                                        "selected"
+                                    );
+
+                                    const check =
+                                        item.querySelector(
+                                            ".service-check"
+                                        );
+
+                                    if (check) {
+                                        check.textContent = "";
+                                    }
+
+                                }
+                            );
+
+                            option.classList.add(
+                                "selected"
+                            );
+
+                            const check =
+                                option.querySelector(
+                                    ".service-check"
+                                );
+
+                            if (check) {
+                                check.textContent = "✓";
+                            }
+
+                            customServiceFilter.classList.remove(
+                                "open"
+                            );
+
+                            customServiceButton.classList.remove(
+                                "active"
+                            );
+
+                            customServiceButton.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+            document.addEventListener(
+                "click",
+                () => {
+
+                    customServiceFilter.classList.remove(
+                        "open"
+                    );
+
+                    customServiceButton.classList.remove(
+                        "active"
+                    );
+
+                    customServiceButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+            );
+
         }
 
     </script>
