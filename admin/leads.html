@@ -407,16 +407,63 @@
 
                         </div>
 
-                        <select
-                            id="leadPeriodFilter"
-                            class="lead-status-filter"
-                        >
-                            <option value="">Hoje</option>
-                            <option value="ontem">Ontem</option>
-                            <option value="7dias">Últimos 7 dias</option>
-                            <option value="30dias">Últimos 30 dias</option>
-                            <option value="todos">Todos os períodos</option>
-                        </select>
+                        <div class="custom-period-filter">
+
+                            <select
+                                id="leadPeriodFilter"
+                                class="lead-status-filter custom-period-native"
+                            >
+                                <option value="">Hoje</option>
+                                <option value="ontem">Ontem</option>
+                                <option value="7dias">Últimos 7 dias</option>
+                                <option value="30dias">Últimos 30 dias</option>
+                                <option value="todos">Todos os períodos</option>
+                            </select>
+
+                            <button
+                                type="button"
+                                class="custom-period-button"
+                                aria-expanded="false"
+                            >
+                                <span class="custom-period-label">
+                                    Hoje
+                                </span>
+
+                                <span class="custom-period-arrow">
+                                    ▾
+                                </span>
+                            </button>
+
+                            <div class="custom-period-menu">
+
+                                <button type="button" data-value="">
+                                    <span class="period-check">✓</span>
+                                    Hoje
+                                </button>
+
+                                <button type="button" data-value="ontem">
+                                    <span class="period-check"></span>
+                                    Ontem
+                                </button>
+
+                                <button type="button" data-value="7dias">
+                                    <span class="period-check"></span>
+                                    Últimos 7 dias
+                                </button>
+
+                                <button type="button" data-value="30dias">
+                                    <span class="period-check"></span>
+                                    Últimos 30 dias
+                                </button>
+
+                                <button type="button" data-value="todos">
+                                    <span class="period-check"></span>
+                                    Todos os períodos
+                                </button>
+
+                            </div>
+
+                        </div>
 
                         <select
                             id="leadOriginFilter"
@@ -1502,6 +1549,158 @@ leadsContainer.addEventListener(
                     );
 
                     customStatusButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+                }
+            );
+        }
+
+        /* =========================================================
+           DROPDOWN PREMIUM — PERÍODO
+        ========================================================= */
+
+        const customPeriodFilter =
+            document.querySelector(".custom-period-filter");
+
+        const customPeriodButton =
+            document.querySelector(".custom-period-button");
+
+        const customPeriodLabel =
+            document.querySelector(".custom-period-label");
+
+        const customPeriodMenu =
+            document.querySelector(".custom-period-menu");
+
+        const customPeriodOptions =
+            document.querySelectorAll(
+                ".custom-period-menu button"
+            );
+
+        if (
+            customPeriodFilter &&
+            customPeriodButton &&
+            customPeriodLabel &&
+            customPeriodMenu
+        ) {
+
+            /* Abrir / fechar menu */
+            customPeriodButton.addEventListener(
+                "click",
+                (event) => {
+
+                    event.stopPropagation();
+
+                    const aberto =
+                        customPeriodFilter.classList.toggle("open");
+
+                    customPeriodButton.classList.toggle(
+                        "active",
+                        aberto
+                    );
+
+                    customPeriodButton.setAttribute(
+                        "aria-expanded",
+                        aberto ? "true" : "false"
+                    );
+                }
+            );
+
+            /* Selecionar período */
+            customPeriodOptions.forEach(
+                (option) => {
+
+                    option.addEventListener(
+                        "click",
+                        (event) => {
+
+                            event.stopPropagation();
+
+                            const value =
+                                option.dataset.value;
+
+                            /* Atualiza o select original */
+                            leadPeriodFilter.value = value;
+
+                            /* Dispara o filtro original */
+                            leadPeriodFilter.dispatchEvent(
+                                new Event(
+                                    "change",
+                                    {
+                                        bubbles: true
+                                    }
+                                )
+                            );
+
+                            /* Atualiza o texto */
+                            customPeriodLabel.textContent =
+                                option.textContent.trim();
+
+                            /* Remove seleção anterior */
+                            customPeriodOptions.forEach(
+                                (item) => {
+
+                                    item.classList.remove(
+                                        "selected"
+                                    );
+
+                                    const check =
+                                        item.querySelector(
+                                            ".period-check"
+                                        );
+
+                                    if (check) {
+                                        check.textContent = "";
+                                    }
+                                }
+                            );
+
+                            /* Marca selecionado */
+                            option.classList.add(
+                                "selected"
+                            );
+
+                            const check =
+                                option.querySelector(
+                                    ".period-check"
+                                );
+
+                            if (check) {
+                                check.textContent = "✓";
+                            }
+
+                            /* Fecha menu */
+                            customPeriodFilter.classList.remove(
+                                "open"
+                            );
+
+                            customPeriodButton.classList.remove(
+                                "active"
+                            );
+
+                            customPeriodButton.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
+                        }
+                    );
+                }
+            );
+
+            /* Fecha ao clicar fora */
+            document.addEventListener(
+                "click",
+                () => {
+
+                    customPeriodFilter.classList.remove(
+                        "open"
+                    );
+
+                    customPeriodButton.classList.remove(
+                        "active"
+                    );
+
+                    customPeriodButton.setAttribute(
                         "aria-expanded",
                         "false"
                     );
