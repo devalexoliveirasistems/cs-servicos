@@ -356,6 +356,10 @@
 
                         <div class="custom-status-filter">
 
+                            <span class="lead-filter-label">
+                                Status
+                            </span>
+
                             <select
                                 id="leadStatusFilter"
                                 class="lead-status-filter custom-status-native"
@@ -414,6 +418,10 @@
 
                         <div class="custom-period-filter">
 
+                            <span class="lead-filter-label">
+                                Período
+                            </span>
+
                             <select
                                 id="leadPeriodFilter"
                                 class="lead-status-filter custom-period-native"
@@ -470,7 +478,11 @@
 
                         </div>
 
-                        <div class="custom-origin-filter">
+                       <div class="custom-origin-filter">
+
+                            <span class="lead-filter-label">
+                                Origem
+                            </span>
 
                             <select
                                 id="leadOriginFilter"
@@ -529,6 +541,10 @@
                         </div>
 
                         <div class="custom-service-filter">
+
+                            <span class="lead-filter-label">
+                                Serviço
+                            </span>
 
                             <select
                                 id="leadServiceFilter"
@@ -1503,9 +1519,9 @@ leadsContainer.addEventListener(
 
         carregarLeads();
 
-                /* =========================================================
+        /* =========================================================
            DROPDOWN PREMIUM — STATUS
-           ========================================================= */
+        ========================================================= */
 
         const customStatusFilter =
             document.querySelector(".custom-status-filter");

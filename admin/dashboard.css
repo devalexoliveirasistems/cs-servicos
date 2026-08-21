@@ -1634,11 +1634,19 @@ body {
 
 .lead-search {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
 
-    gap: 10px;
+    gap: 12px;
 
     margin: 16px 18px 20px;
+    padding: 16px;
+
+    background: var(--card);
+
+    border: 1px solid #252525;
+    border-radius: var(--radius);
+
+    box-sizing: border-box;
 }
 
 .lead-search input {
@@ -1739,15 +1747,27 @@ body {
 
     color: #ddd;
 }
+.lead-filter-label {
+    display: block;
 
+    margin-bottom: 6px;
+
+    color: #777;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: .1em;
+
+    text-transform: uppercase;
+}
 /* =========================================================
    DROPDOWN PREMIUM — STATUS DOS LEADS
-   ========================================================= */
+========================================================= */
 
 .custom-status-filter {
     position: relative;
     width: 180px;
-    height: 44px;
     flex-shrink: 0;
 }
 
@@ -2013,7 +2033,6 @@ body {
 .custom-period-filter {
     position: relative;
     width: 180px;
-    height: 44px;
     flex-shrink: 0;
 }
 
@@ -2267,7 +2286,6 @@ body {
 .custom-origin-filter {
     position: relative;
     width: 180px;
-    height: 44px;
     flex-shrink: 0;
 }
 
@@ -2521,7 +2539,6 @@ body {
 .custom-service-filter {
     position: relative;
     width: 180px;
-    height: 44px;
     flex-shrink: 0;
 }
 
