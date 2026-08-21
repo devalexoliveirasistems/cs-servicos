@@ -349,16 +349,63 @@
                             autocomplete="off"
                         >
 
-                        <select
-                            id="leadStatusFilter"
-                            class="lead-status-filter"
-                        >
-                            <option value="">Todos os status</option>
-                            <option value="Novo">Novo</option>
-                            <option value="Em atendimento">Em atendimento</option>
-                            <option value="Concluído">Concluído</option>
-                            <option value="Cancelado">Cancelado</option>
-                        </select>
+                        <div class="custom-status-filter">
+
+                            <select
+                                id="leadStatusFilter"
+                                class="lead-status-filter custom-status-native"
+                            >
+                                <option value="">Todos os status</option>
+                                <option value="Novo">Novo</option>
+                                <option value="Em atendimento">Em atendimento</option>
+                                <option value="Concluído">Concluído</option>
+                                <option value="Cancelado">Cancelado</option>
+                            </select>
+
+                            <button
+                                type="button"
+                                class="custom-status-button"
+                                aria-expanded="false"
+                            >
+                                <span class="custom-status-label">
+                                    Todos os status
+                                </span>
+
+                                <span class="custom-status-arrow">
+                                    ▾
+                                </span>
+                            </button>
+
+                            <div class="custom-status-menu">
+
+                                <button type="button" data-value="">
+                                    <span class="status-check">✓</span>
+                                    Todos os status
+                                </button>
+
+                                <button type="button" data-value="Novo">
+                                    <span class="status-check"></span>
+                                    Novo
+                                </button>
+
+                                <button type="button" data-value="Em atendimento">
+                                    <span class="status-check"></span>
+                                    Em atendimento
+                                </button>
+
+                                <button type="button" data-value="Concluído">
+                                    <span class="status-check"></span>
+                                    Concluído
+                                </button>
+
+                                <button type="button" data-value="Cancelado">
+                                    <span class="status-check"></span>
+                                    Cancelado
+                                </button>
+
+                            </div>
+
+                        </div>
 
                         <select
                             id="leadPeriodFilter"
@@ -1310,6 +1357,157 @@ leadsContainer.addEventListener(
         ========================= */
 
         carregarLeads();
+
+                /* =========================================================
+           DROPDOWN PREMIUM — STATUS
+           ========================================================= */
+
+        const customStatusFilter =
+            document.querySelector(".custom-status-filter");
+
+        const customStatusButton =
+            document.querySelector(".custom-status-button");
+
+        const customStatusLabel =
+            document.querySelector(".custom-status-label");
+
+        const customStatusMenu =
+            document.querySelector(".custom-status-menu");
+
+        const customStatusOptions =
+            document.querySelectorAll(
+                ".custom-status-menu button"
+            );
+
+        if (
+            customStatusFilter &&
+            customStatusButton &&
+            customStatusLabel &&
+            customStatusMenu
+        ) {
+
+            /* Abrir / fechar menu */
+            customStatusButton.addEventListener(
+                "click",
+                (event) => {
+
+                    event.stopPropagation();
+
+                    const aberto =
+                        customStatusFilter.classList.toggle("open");
+
+                    customStatusButton.classList.toggle(
+                        "active",
+                        aberto
+                    );
+
+                    customStatusButton.setAttribute(
+                        "aria-expanded",
+                        aberto ? "true" : "false"
+                    );
+                }
+            );
+
+            /* Selecionar opção */
+            customStatusOptions.forEach(
+                (option) => {
+
+                    option.addEventListener(
+                        "click",
+                        (event) => {
+
+                            event.stopPropagation();
+
+                            const value =
+                                option.dataset.value;
+
+                            /* Atualiza o select original */
+                            leadStatusFilter.value = value;
+
+                            /* Dispara o filtro original */
+                            leadStatusFilter.dispatchEvent(
+                                new Event(
+                                    "change",
+                                    {
+                                        bubbles: true
+                                    }
+                                )
+                            );
+
+                            /* Atualiza o texto */
+                            customStatusLabel.textContent =
+                                option.textContent.trim();
+
+                            /* Atualiza marcação */
+                            customStatusOptions.forEach(
+                                (item) => {
+
+                                    item.classList.remove(
+                                        "selected"
+                                    );
+
+                                    const check =
+                                        item.querySelector(
+                                            ".status-check"
+                                        );
+
+                                    if (check) {
+                                        check.textContent = "";
+                                    }
+                                }
+                            );
+
+                            option.classList.add(
+                                "selected"
+                            );
+
+                            const check =
+                                option.querySelector(
+                                    ".status-check"
+                                );
+
+                            if (check) {
+                                check.textContent = "✓";
+                            }
+
+                            /* Fecha o menu */
+                            customStatusFilter.classList.remove(
+                                "open"
+                            );
+
+                            customStatusButton.classList.remove(
+                                "active"
+                            );
+
+                            customStatusButton.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
+                        }
+                    );
+                }
+            );
+
+            /* Fecha ao clicar fora */
+            document.addEventListener(
+                "click",
+                () => {
+
+                    customStatusFilter.classList.remove(
+                        "open"
+                    );
+
+                    customStatusButton.classList.remove(
+                        "active"
+                    );
+
+                    customStatusButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+                }
+            );
+        }
 
     </script>
 
