@@ -1615,22 +1615,32 @@ body {
 }
 
 /* =========================
-   PESQUISA DE LEADS
+   PESQUISA E FILTRO DE LEADS
 ========================= */
 
 .lead-search {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
     margin: 16px 18px 20px;
 }
 
 .lead-search input {
-    width: 100%;
+    flex: 1;
+
+    min-width: 0;
+
     box-sizing: border-box;
 
-    padding: 13px 16px;
+    height: 44px;
 
-    background: #151515;
+    padding: 0 16px;
 
-    border: 1px solid #2a2a2a;
+    background: #141414;
+
+    border: 1px solid #292929;
     border-radius: 10px;
 
     color: var(--text);
@@ -1651,7 +1661,7 @@ body {
 }
 
 .lead-search input:hover {
-    border-color: rgba(212, 175, 55, 0.35);
+    border-color: rgba(212, 175, 55, 0.30);
 }
 
 .lead-search input:focus {
@@ -1660,5 +1670,58 @@ body {
     background: #181818;
 
     box-shadow:
-        0 0 0 3px rgba(212, 175, 55, 0.08);
+        0 0 0 3px rgba(212, 175, 55, 0.07);
+}
+
+.lead-status-filter {
+    width: 180px;
+
+    height: 44px;
+
+    padding: 0 14px;
+
+    background: #141414;
+
+    border: 1px solid #292929;
+    border-radius: 10px;
+
+    color: #d6d6d6;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    outline: none;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.lead-status-filter:hover {
+    border-color: rgba(212, 175, 55, 0.30);
+
+    background: #181818;
+
+    color: var(--gold);
+}
+
+.lead-status-filter:focus {
+    border-color: var(--gold);
+
+    background: #181818;
+
+    color: #fff;
+
+    box-shadow:
+        0 0 0 3px rgba(212, 175, 55, 0.07);
+}
+
+.lead-status-filter option {
+    background: #151515;
+
+    color: #ddd;
 }
