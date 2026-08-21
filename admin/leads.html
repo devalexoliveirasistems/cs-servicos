@@ -465,16 +465,63 @@
 
                         </div>
 
-                        <select
-                            id="leadOriginFilter"
-                            class="lead-status-filter"
-                        >
-                            <option value="">Todas as origens</option>
-                            <option value="Site">Site</option>
-                            <option value="WhatsApp">WhatsApp</option>
-                            <option value="Instagram">Instagram</option>
-                            <option value="Indicação">Indicação</option>
-                        </select>
+                        <div class="custom-origin-filter">
+
+                            <select
+                                id="leadOriginFilter"
+                                class="lead-status-filter custom-origin-native"
+                            >
+                                <option value="">Todas as origens</option>
+                                <option value="Site">Site</option>
+                                <option value="WhatsApp">WhatsApp</option>
+                                <option value="Instagram">Instagram</option>
+                                <option value="Indicação">Indicação</option>
+                            </select>
+
+                            <button
+                                type="button"
+                                class="custom-origin-button"
+                                aria-expanded="false"
+                            >
+                                <span class="custom-origin-label">
+                                    Todas as origens
+                                </span>
+
+                                <span class="custom-origin-arrow">
+                                    ▾
+                                </span>
+                            </button>
+
+                            <div class="custom-origin-menu">
+
+                                <button type="button" data-value="">
+                                    <span class="origin-check">✓</span>
+                                    Todas as origens
+                                </button>
+
+                                <button type="button" data-value="Site">
+                                    <span class="origin-check"></span>
+                                    Site
+                                </button>
+
+                                <button type="button" data-value="WhatsApp">
+                                    <span class="origin-check"></span>
+                                    WhatsApp
+                                </button>
+
+                                <button type="button" data-value="Instagram">
+                                    <span class="origin-check"></span>
+                                    Instagram
+                                </button>
+
+                                <button type="button" data-value="Indicação">
+                                    <span class="origin-check"></span>
+                                    Indicação
+                                </button>
+
+                            </div>
+
+                        </div>
 
                         <select
                             id="leadServiceFilter"
@@ -1701,6 +1748,158 @@ leadsContainer.addEventListener(
                     );
 
                     customPeriodButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+                }
+            );
+        }
+
+                /* =========================================================
+           DROPDOWN PREMIUM — ORIGEM
+           ========================================================= */
+
+        const customOriginFilter =
+            document.querySelector(".custom-origin-filter");
+
+        const customOriginButton =
+            document.querySelector(".custom-origin-button");
+
+        const customOriginLabel =
+            document.querySelector(".custom-origin-label");
+
+        const customOriginMenu =
+            document.querySelector(".custom-origin-menu");
+
+        const customOriginOptions =
+            document.querySelectorAll(
+                ".custom-origin-menu button"
+            );
+
+        if (
+            customOriginFilter &&
+            customOriginButton &&
+            customOriginLabel &&
+            customOriginMenu
+        ) {
+
+            /* Abrir / fechar menu */
+            customOriginButton.addEventListener(
+                "click",
+                (event) => {
+
+                    event.stopPropagation();
+
+                    const aberto =
+                        customOriginFilter.classList.toggle("open");
+
+                    customOriginButton.classList.toggle(
+                        "active",
+                        aberto
+                    );
+
+                    customOriginButton.setAttribute(
+                        "aria-expanded",
+                        aberto ? "true" : "false"
+                    );
+                }
+            );
+
+            /* Selecionar origem */
+            customOriginOptions.forEach(
+                (option) => {
+
+                    option.addEventListener(
+                        "click",
+                        (event) => {
+
+                            event.stopPropagation();
+
+                            const value =
+                                option.dataset.value;
+
+                            /* Atualiza o select original */
+                            leadOriginFilter.value = value;
+
+                            /* Dispara o filtro original */
+                            leadOriginFilter.dispatchEvent(
+                                new Event(
+                                    "change",
+                                    {
+                                        bubbles: true
+                                    }
+                                )
+                            );
+
+                            /* Atualiza o texto */
+                            customOriginLabel.textContent =
+                                option.textContent.trim();
+
+                            /* Remove seleção anterior */
+                            customOriginOptions.forEach(
+                                (item) => {
+
+                                    item.classList.remove(
+                                        "selected"
+                                    );
+
+                                    const check =
+                                        item.querySelector(
+                                            ".origin-check"
+                                        );
+
+                                    if (check) {
+                                        check.textContent = "";
+                                    }
+                                }
+                            );
+
+                            /* Marca selecionado */
+                            option.classList.add(
+                                "selected"
+                            );
+
+                            const check =
+                                option.querySelector(
+                                    ".origin-check"
+                                );
+
+                            if (check) {
+                                check.textContent = "✓";
+                            }
+
+                            /* Fecha menu */
+                            customOriginFilter.classList.remove(
+                                "open"
+                            );
+
+                            customOriginButton.classList.remove(
+                                "active"
+                            );
+
+                            customOriginButton.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
+                        }
+                    );
+                }
+            );
+
+            /* Fecha ao clicar fora */
+            document.addEventListener(
+                "click",
+                () => {
+
+                    customOriginFilter.classList.remove(
+                        "open"
+                    );
+
+                    customOriginButton.classList.remove(
+                        "active"
+                    );
+
+                    customOriginButton.setAttribute(
                         "aria-expanded",
                         "false"
                     );
